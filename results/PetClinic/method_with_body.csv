@@ -1,0 +1,1173 @@
+MavenWrapperDownloader.main,MavenWrapperDownloader.java,"void main(String args[]) {
+        System.out.println(""- Downloader started"");
+        File baseDirectory = new File(args[0]);
+        System.out.println(""- Using base directory: "" + baseDirectory.getAbsolutePath());
+
+        // If the maven-wrapper.properties exists, read it and check if it contains a custom
+        // wrapperUrl parameter.
+        File mavenWrapperPropertyFile = new File(baseDirectory, MAVEN_WRAPPER_PROPERTIES_PATH);
+        String url = DEFAULT_DOWNLOAD_URL;
+        if(mavenWrapperPropertyFile.exists()) {
+            FileInputStream mavenWrapperPropertyFileInputStream = null;
+            try {
+                mavenWrapperPropertyFileInputStream = new FileInputStream(mavenWrapperPropertyFile);
+                Properties mavenWrapperProperties = new Properties();
+                mavenWrapperProperties.load(mavenWrapperPropertyFileInputStream);
+                url = mavenWrapperProperties.getProperty(PROPERTY_NAME_WRAPPER_URL, url);
+            } catch (IOException e) {
+                System.out.println(""- ERROR loading '"" + MAVEN_WRAPPER_PROPERTIES_PATH + ""'"");
+            } finally {
+                try {
+                    if(mavenWrapperPropertyFileInputStream != null) {
+                        mavenWrapperPropertyFileInputStream.close();
+                    }
+                } catch (IOException e) {
+                    // Ignore ...
+                }
+            }
+        }
+        System.out.println(""- Downloading from: "" + url);
+
+        File outputFile = new File(baseDirectory.getAbsolutePath(), MAVEN_WRAPPER_JAR_PATH);
+        if(!outputFile.getParentFile().exists()) {
+            if(!outputFile.getParentFile().mkdirs()) {
+                System.out.println(
+                        ""- ERROR creating output directory '"" + outputFile.getParentFile().getAbsolutePath() + ""'"");
+            }
+        }
+        System.out.println(""- Downloading to: "" + outputFile.getAbsolutePath());
+        try {
+            downloadFileFromURL(url, outputFile);
+            System.out.println(""Done"");
+            System.exit(0);
+        } catch (Throwable e) {
+            System.out.println(""- Error downloading"");
+            e.printStackTrace();
+            System.exit(1);
+        }
+    }
+"
+MavenWrapperDownloader.downloadFileFromURL,MavenWrapperDownloader.java,"void downloadFileFromURL(String urlString, File destination) throws Exception {
+        if (System.getenv(""MVNW_USERNAME"") != null && System.getenv(""MVNW_PASSWORD"") != null) {
+            String username = System.getenv(""MVNW_USERNAME"");
+            char[] password = System.getenv(""MVNW_PASSWORD"").toCharArray();
+            Authenticator.setDefault(new Authenticator() {
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(username, password);
+                }
+            });
+        }
+        URL website = new URL(urlString);
+        ReadableByteChannel rbc;
+        rbc = Channels.newChannel(website.openStream());
+        FileOutputStream fos = new FileOutputStream(destination);
+        fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+        fos.close();
+        rbc.close();
+    }
+"
+MavenWrapperDownloader.getPasswordAuthentication,MavenWrapperDownloader.java,"PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(username, password);
+                }
+"
+org.springframework.samples.petclinic.PetClinicIntegrationTests.testFindAll,PetClinicIntegrationTests.java,"void testFindAll() throws Exception {
+		vets.findAll();
+		vets.findAll(); // served from cache
+	}
+"
+org.springframework.samples.petclinic.PetClinicIntegrationTests.testOwnerDetails,PetClinicIntegrationTests.java,"void testOwnerDetails() {
+		RestTemplate template = builder.rootUri(""http://localhost:"" + port).build();
+		ResponseEntity<String> result = template.exchange(RequestEntity.get(""/owners/1"").build(), String.class);
+		assertThat("""".isEmpty()).isTrue();
+
+	}
+"
+org.springframework.samples.petclinic.vet.VetTests.testSerialization,VetTests.java,"void testSerialization() {
+		Vet vet = new Vet();
+		vet.setFirstName(""Zaphod"");
+		vet.setLastName(""Beeblebrox"");
+		vet.setId(123);
+		Vet other = (Vet) SerializationUtils.deserialize(SerializationUtils.serialize(vet));
+		assertThat(other.getFirstName()).isEqualTo(vet.getFirstName());
+		assertThat(other.getLastName()).isEqualTo(vet.getLastName());
+		assertThat(other.getId()).isEqualTo(vet.getId());
+	}
+"
+org.springframework.samples.petclinic.vet.VetControllerTests.james,VetControllerTests.java,"Vet james() {
+		Vet james = new Vet();
+		james.setFirstName(""James"");
+		james.setLastName(""Carter"");
+		james.setId(1);
+		return james;
+	}
+"
+org.springframework.samples.petclinic.vet.VetControllerTests.helen,VetControllerTests.java,"Vet helen() {
+		Vet helen = new Vet();
+		helen.setFirstName(""Helen"");
+		helen.setLastName(""Leary"");
+		helen.setId(2);
+		Specialty radiology = new Specialty();
+		radiology.setId(1);
+		radiology.setName(""radiology"");
+		helen.addSpecialty(radiology);
+		return helen;
+	}
+"
+org.springframework.samples.petclinic.vet.VetControllerTests.setup,VetControllerTests.java,"void setup() {
+		given(this.vets.findAll()).willReturn(Lists.newArrayList(james(), helen()));
+		given(this.vets.findAll(any(Pageable.class)))
+			.willReturn(new PageImpl<Vet>(Lists.newArrayList(james(), helen())));
+
+	}
+"
+org.springframework.samples.petclinic.vet.VetControllerTests.testShowVetListHtml,VetControllerTests.java,"void testShowVetListHtml() throws Exception {
+
+		mockMvc.perform(MockMvcRequestBuilders.get(""/vets.html?page=1""))
+			.andExpect(status().isOk())
+			.andExpect(model().attributeExists(""listVets""))
+			.andExpect(view().name(""vets/vetList""));
+
+	}
+"
+org.springframework.samples.petclinic.vet.VetControllerTests.testShowResourcesVetList,VetControllerTests.java,"void testShowResourcesVetList() throws Exception {
+		ResultActions actions = mockMvc.perform(get(""/vets"").accept(MediaType.APPLICATION_JSON))
+			.andExpect(status().isOk());
+		actions.andExpect(content().contentType(MediaType.APPLICATION_JSON))
+			.andExpect(jsonPath(""$.vetList[0].id"").value(1));
+	}
+"
+org.springframework.samples.petclinic.owner.PetControllerTests.setup,PetControllerTests.java,"void setup() {
+		PetType cat = new PetType();
+		cat.setId(3);
+		cat.setName(""hamster"");
+		given(this.owners.findPetTypes()).willReturn(Lists.newArrayList(cat));
+		Owner owner = new Owner();
+		Pet pet = new Pet();
+		owner.addPet(pet);
+		pet.setId(TEST_PET_ID);
+		given(this.owners.findById(TEST_OWNER_ID)).willReturn(owner);
+	}
+"
+org.springframework.samples.petclinic.owner.PetControllerTests.testInitCreationForm,PetControllerTests.java,"void testInitCreationForm() throws Exception {
+		mockMvc.perform(get(""/owners/{ownerId}/pets/new"", TEST_OWNER_ID))
+			.andExpect(status().isOk())
+			.andExpect(view().name(""pets/createOrUpdatePetForm""))
+			.andExpect(model().attributeExists(""pet""));
+	}
+"
+org.springframework.samples.petclinic.owner.PetControllerTests.testProcessCreationFormSuccess,PetControllerTests.java,"void testProcessCreationFormSuccess() throws Exception {
+		mockMvc
+			.perform(post(""/owners/{ownerId}/pets/new"", TEST_OWNER_ID).param(""name"", ""Betty"")
+				.param(""type"", ""hamster"")
+				.param(""birthDate"", ""2015-02-12""))
+			.andExpect(status().is3xxRedirection())
+			.andExpect(view().name(""redirect:/owners/{ownerId}""));
+	}
+"
+org.springframework.samples.petclinic.owner.PetControllerTests.testProcessCreationFormHasErrors,PetControllerTests.java,"void testProcessCreationFormHasErrors() throws Exception {
+		mockMvc
+			.perform(post(""/owners/{ownerId}/pets/new"", TEST_OWNER_ID).param(""name"", ""Betty"")
+				.param(""birthDate"", ""2015-02-12""))
+			.andExpect(model().attributeHasNoErrors(""owner""))
+			.andExpect(model().attributeHasErrors(""pet""))
+			.andExpect(model().attributeHasFieldErrors(""pet"", ""type""))
+			.andExpect(model().attributeHasFieldErrorCode(""pet"", ""type"", ""required""))
+			.andExpect(status().isOk())
+			.andExpect(view().name(""pets/createOrUpdatePetForm""));
+	}
+"
+org.springframework.samples.petclinic.owner.PetControllerTests.testInitUpdateForm,PetControllerTests.java,"void testInitUpdateForm() throws Exception {
+		mockMvc.perform(get(""/owners/{ownerId}/pets/{petId}/edit"", TEST_OWNER_ID, TEST_PET_ID))
+			.andExpect(status().isOk())
+			.andExpect(model().attributeExists(""pet""))
+			.andExpect(view().name(""pets/createOrUpdatePetForm""));
+	}
+"
+org.springframework.samples.petclinic.owner.PetControllerTests.testProcessUpdateFormSuccess,PetControllerTests.java,"void testProcessUpdateFormSuccess() throws Exception {
+		mockMvc
+			.perform(post(""/owners/{ownerId}/pets/{petId}/edit"", TEST_OWNER_ID, TEST_PET_ID).param(""name"", ""Betty"")
+				.param(""type"", ""hamster"")
+				.param(""birthDate"", ""2015-02-12""))
+			.andExpect(status().is3xxRedirection())
+			.andExpect(view().name(""redirect:/owners/{ownerId}""));
+	}
+"
+org.springframework.samples.petclinic.owner.PetControllerTests.testProcessUpdateFormHasErrors,PetControllerTests.java,"void testProcessUpdateFormHasErrors() throws Exception {
+		mockMvc
+			.perform(post(""/owners/{ownerId}/pets/{petId}/edit"", TEST_OWNER_ID, TEST_PET_ID).param(""name"", ""Betty"")
+				.param(""birthDate"", ""2015/02/12""))
+			.andExpect(model().attributeHasNoErrors(""owner""))
+			.andExpect(model().attributeHasErrors(""pet""))
+			.andExpect(status().isOk())
+			.andExpect(view().name(""pets/createOrUpdatePetForm""));
+	}
+"
+org.springframework.samples.petclinic.owner.OwnerControllerTests.george,OwnerControllerTests.java,"Owner george() {
+		Owner george = new Owner();
+		george.setId(TEST_OWNER_ID);
+		george.setFirstName(""George"");
+		george.setLastName(""Franklin"");
+		george.setAddress(""110 W. Liberty St."");
+		george.setCity(""Madison"");
+		george.setTelephone(""6085551023"");
+		Pet max = new Pet();
+		PetType dog = new PetType();
+		dog.setName(""dog"");
+		max.setType(dog);
+		max.setName(""Max"");
+		max.setBirthDate(LocalDate.now());
+		george.addPet(max);
+		max.setId(1);
+		return george;
+	};
+"
+org.springframework.samples.petclinic.owner.OwnerControllerTests.setup,OwnerControllerTests.java,"void setup() {
+
+		Owner george = george();
+		given(this.owners.findByLastName(eq(""Franklin""), any(Pageable.class)))
+			.willReturn(new PageImpl<Owner>(Lists.newArrayList(george)));
+
+		given(this.owners.findAll(any(Pageable.class))).willReturn(new PageImpl<Owner>(Lists.newArrayList(george)));
+
+		given(this.owners.findById(TEST_OWNER_ID)).willReturn(george);
+		Visit visit = new Visit();
+		visit.setDate(LocalDate.now());
+		george.getPet(""Max"").getVisits().add(visit);
+
+	}
+"
+org.springframework.samples.petclinic.owner.OwnerControllerTests.testInitCreationForm,OwnerControllerTests.java,"void testInitCreationForm() throws Exception {
+		mockMvc.perform(get(""/owners/new""))
+			.andExpect(status().isOk())
+			.andExpect(model().attributeExists(""owner""))
+			.andExpect(view().name(""owners/createOrUpdateOwnerForm""));
+	}
+"
+org.springframework.samples.petclinic.owner.OwnerControllerTests.testProcessCreationFormSuccess,OwnerControllerTests.java,"void testProcessCreationFormSuccess() throws Exception {
+		mockMvc
+			.perform(post(""/owners/new"").param(""firstName"", ""Joe"")
+				.param(""lastName"", ""Bloggs"")
+				.param(""address"", ""123 Caramel Street"")
+				.param(""city"", ""London"")
+				.param(""telephone"", ""01316761638""))
+			.andExpect(status().is3xxRedirection());
+	}
+"
+org.springframework.samples.petclinic.owner.OwnerControllerTests.testProcessCreationFormHasErrors,OwnerControllerTests.java,"void testProcessCreationFormHasErrors() throws Exception {
+		mockMvc
+			.perform(post(""/owners/new"").param(""firstName"", ""Joe"").param(""lastName"", ""Bloggs"").param(""city"", ""London""))
+			.andExpect(status().isOk())
+			.andExpect(model().attributeHasErrors(""owner""))
+			.andExpect(model().attributeHasFieldErrors(""owner"", ""address""))
+			.andExpect(model().attributeHasFieldErrors(""owner"", ""telephone""))
+			.andExpect(view().name(""owners/createOrUpdateOwnerForm""));
+	}
+"
+org.springframework.samples.petclinic.owner.OwnerControllerTests.testInitFindForm,OwnerControllerTests.java,"void testInitFindForm() throws Exception {
+		mockMvc.perform(get(""/owners/find""))
+			.andExpect(status().isOk())
+			.andExpect(model().attributeExists(""owner""))
+			.andExpect(view().name(""owners/findOwners""));
+	}
+"
+org.springframework.samples.petclinic.owner.OwnerControllerTests.testProcessFindFormSuccess,OwnerControllerTests.java,"void testProcessFindFormSuccess() throws Exception {
+		Page<Owner> tasks = new PageImpl<Owner>(Lists.newArrayList(george(), new Owner()));
+		Mockito.when(this.owners.findByLastName(anyString(), any(Pageable.class))).thenReturn(tasks);
+		mockMvc.perform(get(""/owners?page=1"")).andExpect(status().isOk()).andExpect(view().name(""owners/ownersList""));
+	}
+"
+org.springframework.samples.petclinic.owner.OwnerControllerTests.testProcessFindFormByLastName,OwnerControllerTests.java,"void testProcessFindFormByLastName() throws Exception {
+		Page<Owner> tasks = new PageImpl<Owner>(Lists.newArrayList(george()));
+		Mockito.when(this.owners.findByLastName(eq(""Franklin""), any(Pageable.class))).thenReturn(tasks);
+		mockMvc.perform(get(""/owners?page=1"").param(""lastName"", ""Franklin""))
+			.andExpect(status().is3xxRedirection())
+			.andExpect(view().name(""redirect:/owners/"" + TEST_OWNER_ID));
+	}
+"
+org.springframework.samples.petclinic.owner.OwnerControllerTests.testProcessFindFormNoOwnersFound,OwnerControllerTests.java,"void testProcessFindFormNoOwnersFound() throws Exception {
+		Page<Owner> tasks = new PageImpl<Owner>(Lists.newArrayList());
+		Mockito.when(this.owners.findByLastName(eq(""Unknown Surname""), any(Pageable.class))).thenReturn(tasks);
+		mockMvc.perform(get(""/owners?page=1"").param(""lastName"", ""Unknown Surname""))
+			.andExpect(status().isOk())
+			.andExpect(model().attributeHasFieldErrors(""owner"", ""lastName""))
+			.andExpect(model().attributeHasFieldErrorCode(""owner"", ""lastName"", ""notFound""))
+			.andExpect(view().name(""owners/findOwners""));
+
+	}
+"
+org.springframework.samples.petclinic.owner.OwnerControllerTests.testInitUpdateOwnerForm,OwnerControllerTests.java,"void testInitUpdateOwnerForm() throws Exception {
+		mockMvc.perform(get(""/owners/{ownerId}/edit"", TEST_OWNER_ID))
+			.andExpect(status().isOk())
+			.andExpect(model().attributeExists(""owner""))
+			.andExpect(model().attribute(""owner"", hasProperty(""lastName"", is(""Franklin""))))
+			.andExpect(model().attribute(""owner"", hasProperty(""firstName"", is(""George""))))
+			.andExpect(model().attribute(""owner"", hasProperty(""address"", is(""110 W. Liberty St.""))))
+			.andExpect(model().attribute(""owner"", hasProperty(""city"", is(""Madison""))))
+			.andExpect(model().attribute(""owner"", hasProperty(""telephone"", is(""6085551023""))))
+			.andExpect(view().name(""owners/createOrUpdateOwnerForm""));
+	}
+"
+org.springframework.samples.petclinic.owner.OwnerControllerTests.testProcessUpdateOwnerFormSuccess,OwnerControllerTests.java,"void testProcessUpdateOwnerFormSuccess() throws Exception {
+		mockMvc
+			.perform(post(""/owners/{ownerId}/edit"", TEST_OWNER_ID).param(""firstName"", ""Joe"")
+				.param(""lastName"", ""Bloggs"")
+				.param(""address"", ""123 Caramel Street"")
+				.param(""city"", ""London"")
+				.param(""telephone"", ""01616291589""))
+			.andExpect(status().is3xxRedirection())
+			.andExpect(view().name(""redirect:/owners/{ownerId}""));
+	}
+"
+org.springframework.samples.petclinic.owner.OwnerControllerTests.testProcessUpdateOwnerFormUnchangedSuccess,OwnerControllerTests.java,"void testProcessUpdateOwnerFormUnchangedSuccess() throws Exception {
+		mockMvc.perform(post(""/owners/{ownerId}/edit"", TEST_OWNER_ID))
+			.andExpect(status().is3xxRedirection())
+			.andExpect(view().name(""redirect:/owners/{ownerId}""));
+	}
+"
+org.springframework.samples.petclinic.owner.OwnerControllerTests.testProcessUpdateOwnerFormHasErrors,OwnerControllerTests.java,"void testProcessUpdateOwnerFormHasErrors() throws Exception {
+		mockMvc
+			.perform(post(""/owners/{ownerId}/edit"", TEST_OWNER_ID).param(""firstName"", ""Joe"")
+				.param(""lastName"", ""Bloggs"")
+				.param(""address"", """")
+				.param(""telephone"", """"))
+			.andExpect(status().isOk())
+			.andExpect(model().attributeHasErrors(""owner""))
+			.andExpect(model().attributeHasFieldErrors(""owner"", ""address""))
+			.andExpect(model().attributeHasFieldErrors(""owner"", ""telephone""))
+			.andExpect(view().name(""owners/createOrUpdateOwnerForm""));
+	}
+"
+org.springframework.samples.petclinic.owner.OwnerControllerTests.testShowOwner,OwnerControllerTests.java,"void testShowOwner() throws Exception {
+		mockMvc.perform(get(""/owners/{ownerId}"", TEST_OWNER_ID))
+			.andExpect(status().isOk())
+			.andExpect(model().attribute(""owner"", hasProperty(""lastName"", is(""Franklin""))))
+			.andExpect(model().attribute(""owner"", hasProperty(""firstName"", is(""George""))))
+			.andExpect(model().attribute(""owner"", hasProperty(""address"", is(""110 W. Liberty St.""))))
+			.andExpect(model().attribute(""owner"", hasProperty(""city"", is(""Madison""))))
+			.andExpect(model().attribute(""owner"", hasProperty(""telephone"", is(""6085551023""))))
+			.andExpect(model().attribute(""owner"", hasProperty(""pets"", not(empty()))))
+			.andExpect(model().attribute(""owner"", hasProperty(""pets"", new BaseMatcher<List<Pet>>() {
+
+				@Override
+				public boolean matches(Object item) {
+					@SuppressWarnings(""unchecked"")
+					List<Pet> pets = (List<Pet>) item;
+					Pet pet = pets.get(0);
+					if (pet.getVisits().isEmpty()) {
+						return false;
+					}
+					return true;
+				}
+
+				@Override
+				public void describeTo(Description description) {
+					description.appendText(""Max did not have any visits"");
+				}
+			})))
+			.andExpect(view().name(""owners/ownerDetails""));
+	}
+"
+org.springframework.samples.petclinic.owner.OwnerControllerTests.matches,OwnerControllerTests.java,"boolean matches(Object item) {
+					@SuppressWarnings(""unchecked"")
+					List<Pet> pets = (List<Pet>) item;
+					Pet pet = pets.get(0);
+					if (pet.getVisits().isEmpty()) {
+						return false;
+					}
+					return true;
+				}
+"
+org.springframework.samples.petclinic.owner.OwnerControllerTests.describeTo,OwnerControllerTests.java,"void describeTo(Description description) {
+					description.appendText(""Max did not have any visits"");
+				}
+"
+org.springframework.samples.petclinic.owner.VisitControllerTests.init,VisitControllerTests.java,"void init() {
+		Owner owner = new Owner();
+		Pet pet = new Pet();
+		owner.addPet(pet);
+		pet.setId(TEST_PET_ID);
+		given(this.owners.findById(TEST_OWNER_ID)).willReturn(owner);
+	}
+"
+org.springframework.samples.petclinic.owner.VisitControllerTests.testInitNewVisitForm,VisitControllerTests.java,"void testInitNewVisitForm() throws Exception {
+		mockMvc.perform(get(""/owners/{ownerId}/pets/{petId}/visits/new"", TEST_OWNER_ID, TEST_PET_ID))
+			.andExpect(status().isOk())
+			.andExpect(view().name(""pets/createOrUpdateVisitForm""));
+	}
+"
+org.springframework.samples.petclinic.owner.VisitControllerTests.testProcessNewVisitFormSuccess,VisitControllerTests.java,"void testProcessNewVisitFormSuccess() throws Exception {
+		mockMvc
+			.perform(post(""/owners/{ownerId}/pets/{petId}/visits/new"", TEST_OWNER_ID, TEST_PET_ID)
+				.param(""name"", ""George"")
+				.param(""description"", ""Visit Description""))
+			.andExpect(status().is3xxRedirection())
+			.andExpect(view().name(""redirect:/owners/{ownerId}""));
+	}
+"
+org.springframework.samples.petclinic.owner.VisitControllerTests.testProcessNewVisitFormHasErrors,VisitControllerTests.java,"void testProcessNewVisitFormHasErrors() throws Exception {
+		mockMvc
+			.perform(post(""/owners/{ownerId}/pets/{petId}/visits/new"", TEST_OWNER_ID, TEST_PET_ID).param(""name"",
+					""George""))
+			.andExpect(model().attributeHasErrors(""visit""))
+			.andExpect(status().isOk())
+			.andExpect(view().name(""pets/createOrUpdateVisitForm""));
+	}
+"
+org.springframework.samples.petclinic.owner.PetTypeFormatterTests.setup,PetTypeFormatterTests.java,"void setup() {
+		this.petTypeFormatter = new PetTypeFormatter(pets);
+	}
+"
+org.springframework.samples.petclinic.owner.PetTypeFormatterTests.testPrint,PetTypeFormatterTests.java,"void testPrint() {
+		PetType petType = new PetType();
+		petType.setName(""Hamster"");
+		String petTypeName = this.petTypeFormatter.print(petType, Locale.ENGLISH);
+		assertThat(petTypeName).isEqualTo(""Hamster"");
+	}
+"
+org.springframework.samples.petclinic.owner.PetTypeFormatterTests.shouldParse,PetTypeFormatterTests.java,"void shouldParse() throws ParseException {
+		given(this.pets.findPetTypes()).willReturn(makePetTypes());
+		PetType petType = petTypeFormatter.parse(""Bird"", Locale.ENGLISH);
+		assertThat(petType.getName()).isEqualTo(""Bird"");
+	}
+"
+org.springframework.samples.petclinic.owner.PetTypeFormatterTests.shouldThrowParseException,PetTypeFormatterTests.java,"void shouldThrowParseException() throws ParseException {
+		given(this.pets.findPetTypes()).willReturn(makePetTypes());
+		Assertions.assertThrows(ParseException.class, () -> {
+			petTypeFormatter.parse(""Fish"", Locale.ENGLISH);
+		});
+	}
+"
+org.springframework.samples.petclinic.owner.PetTypeFormatterTests.makePetTypes,PetTypeFormatterTests.java,"List<PetType> makePetTypes() {
+		List<PetType> petTypes = new ArrayList<>();
+		petTypes.add(new PetType() {
+			{
+				setName(""Dog"");
+			}
+		});
+		petTypes.add(new PetType() {
+			{
+				setName(""Bird"");
+			}
+		});
+		return petTypes;
+	}
+"
+org.springframework.samples.petclinic.system.CrashControllerTests.testTriggerException,CrashControllerTests.java,"void testTriggerException() throws Exception {
+		RuntimeException thrown = assertThrows(RuntimeException.class, () -> {
+			testee.triggerException();
+		});
+
+		assertEquals(""Expected: controller used to showcase what happens when an exception is thrown"",
+				thrown.getMessage());
+	}
+"
+org.springframework.samples.petclinic.system.TestConfiguration.testTriggerExceptionJson,CrashControllerIntegrationTests.java,"void testTriggerExceptionJson() {
+		ResponseEntity<Map<String, Object>> resp = rest.exchange(
+				RequestEntity.get(""http://localhost:"" + port + ""/oups"").build(),
+				new ParameterizedTypeReference<Map<String, Object>>() {
+				});
+		assertThat(resp).isNotNull();
+		assertThat(resp.getStatusCode().is5xxServerError());
+		assertThat(resp.getBody().containsKey(""timestamp""));
+		assertThat(resp.getBody().containsKey(""status""));
+		assertThat(resp.getBody().containsKey(""error""));
+		assertThat(resp.getBody()).containsEntry(""message"",
+				""Expected: controller used to showcase what happens when an exception is thrown"");
+		assertThat(resp.getBody()).containsEntry(""path"", ""/oups"");
+	}
+"
+org.springframework.samples.petclinic.system.TestConfiguration.testTriggerExceptionHtml,CrashControllerIntegrationTests.java,"void testTriggerExceptionHtml() {
+		HttpHeaders headers = new HttpHeaders();
+		headers.setAccept(List.of(MediaType.TEXT_HTML));
+		ResponseEntity<String> resp = rest.exchange(""http://localhost:"" + port + ""/oups"", HttpMethod.GET,
+				new HttpEntity<>(headers), String.class);
+		assertThat(resp).isNotNull();
+		assertThat(resp.getStatusCode().is5xxServerError());
+		assertThat(resp.getBody()).isNotNull();
+		// html:
+		assertThat(resp.getBody()).containsSubsequence(""<body>"", ""<h2>"", ""Something happened..."", ""</h2>"", ""<p>"",
+				""Expected:"", ""controller"", ""used"", ""to"", ""showcase"", ""what"", ""happens"", ""when"", ""an"", ""exception"", ""is"",
+				""thrown"", ""</p>"", ""</body>"");
+		// Not the whitelabel error page:
+		assertThat(resp.getBody()).doesNotContain(""Whitelabel Error Page"",
+				""This application has no explicit mapping for"");
+	}
+"
+org.springframework.samples.petclinic.model.ValidatorTests.createValidator,ValidatorTests.java,"Validator createValidator() {
+		LocalValidatorFactoryBean localValidatorFactoryBean = new LocalValidatorFactoryBean();
+		localValidatorFactoryBean.afterPropertiesSet();
+		return localValidatorFactoryBean;
+	}
+"
+org.springframework.samples.petclinic.model.ValidatorTests.shouldNotValidateWhenFirstNameEmpty,ValidatorTests.java,"void shouldNotValidateWhenFirstNameEmpty() {
+
+		LocaleContextHolder.setLocale(Locale.ENGLISH);
+		Person person = new Person();
+		person.setFirstName("""");
+		person.setLastName(""smith"");
+
+		Validator validator = createValidator();
+		Set<ConstraintViolation<Person>> constraintViolations = validator.validate(person);
+
+		assertThat(constraintViolations).hasSize(1);
+		ConstraintViolation<Person> violation = constraintViolations.iterator().next();
+		assertThat(violation.getPropertyPath().toString()).isEqualTo(""firstName"");
+		assertThat(violation.getMessage()).isEqualTo(""must not be empty"");
+	}
+"
+org.springframework.samples.petclinic.service.EntityUtils.getById,EntityUtils.java,"<T extends BaseEntity> T getById(Collection<T> entities, Class<T> entityClass, int entityId)
+			throws ObjectRetrievalFailureException {
+		for (T entity : entities) {
+			if (entity.getId() == entityId && entityClass.isInstance(entity)) {
+				return entity;
+			}
+		}
+		throw new ObjectRetrievalFailureException(entityClass, entityId);
+	}
+"
+org.springframework.samples.petclinic.service.ClinicServiceTests.shouldFindOwnersByLastName,ClinicServiceTests.java,"void shouldFindOwnersByLastName() {
+		Page<Owner> owners = this.owners.findByLastName(""Davis"", pageable);
+		assertThat(owners).hasSize(2);
+
+		owners = this.owners.findByLastName(""Daviss"", pageable);
+		assertThat(owners).isEmpty();
+	}
+"
+org.springframework.samples.petclinic.service.ClinicServiceTests.shouldFindSingleOwnerWithPet,ClinicServiceTests.java,"void shouldFindSingleOwnerWithPet() {
+		Owner owner = this.owners.findById(1);
+		assertThat(owner.getLastName()).startsWith(""Franklin"");
+		assertThat(owner.getPets()).hasSize(1);
+		assertThat(owner.getPets().get(0).getType()).isNotNull();
+		assertThat(owner.getPets().get(0).getType().getName()).isEqualTo(""cat"");
+	}
+"
+org.springframework.samples.petclinic.service.ClinicServiceTests.shouldInsertOwner,ClinicServiceTests.java,"void shouldInsertOwner() {
+		Page<Owner> owners = this.owners.findByLastName(""Schultz"", pageable);
+		int found = (int) owners.getTotalElements();
+
+		Owner owner = new Owner();
+		owner.setFirstName(""Sam"");
+		owner.setLastName(""Schultz"");
+		owner.setAddress(""4, Evans Street"");
+		owner.setCity(""Wollongong"");
+		owner.setTelephone(""4444444444"");
+		this.owners.save(owner);
+		assertThat(owner.getId().longValue()).isNotEqualTo(0);
+
+		owners = this.owners.findByLastName(""Schultz"", pageable);
+		assertThat(owners.getTotalElements()).isEqualTo(found + 1);
+	}
+"
+org.springframework.samples.petclinic.service.ClinicServiceTests.shouldUpdateOwner,ClinicServiceTests.java,"void shouldUpdateOwner() {
+		Owner owner = this.owners.findById(1);
+		String oldLastName = owner.getLastName();
+		String newLastName = oldLastName + ""X"";
+
+		owner.setLastName(newLastName);
+		this.owners.save(owner);
+
+		// retrieving new name from database
+		owner = this.owners.findById(1);
+		assertThat(owner.getLastName()).isEqualTo(newLastName);
+	}
+"
+org.springframework.samples.petclinic.service.ClinicServiceTests.shouldFindAllPetTypes,ClinicServiceTests.java,"void shouldFindAllPetTypes() {
+		Collection<PetType> petTypes = this.owners.findPetTypes();
+
+		PetType petType1 = EntityUtils.getById(petTypes, PetType.class, 1);
+		assertThat(petType1.getName()).isEqualTo(""cat"");
+		PetType petType4 = EntityUtils.getById(petTypes, PetType.class, 4);
+		assertThat(petType4.getName()).isEqualTo(""snake"");
+	}
+"
+org.springframework.samples.petclinic.service.ClinicServiceTests.shouldInsertPetIntoDatabaseAndGenerateId,ClinicServiceTests.java,"void shouldInsertPetIntoDatabaseAndGenerateId() {
+		Owner owner6 = this.owners.findById(6);
+		int found = owner6.getPets().size();
+
+		Pet pet = new Pet();
+		pet.setName(""bowser"");
+		Collection<PetType> types = this.owners.findPetTypes();
+		pet.setType(EntityUtils.getById(types, PetType.class, 2));
+		pet.setBirthDate(LocalDate.now());
+		owner6.addPet(pet);
+		assertThat(owner6.getPets().size()).isEqualTo(found + 1);
+
+		this.owners.save(owner6);
+
+		owner6 = this.owners.findById(6);
+		assertThat(owner6.getPets().size()).isEqualTo(found + 1);
+		// checks that id has been generated
+		pet = owner6.getPet(""bowser"");
+		assertThat(pet.getId()).isNotNull();
+	}
+"
+org.springframework.samples.petclinic.service.ClinicServiceTests.shouldUpdatePetName,ClinicServiceTests.java,"void shouldUpdatePetName() throws Exception {
+		Owner owner6 = this.owners.findById(6);
+		Pet pet7 = owner6.getPet(7);
+		String oldName = pet7.getName();
+
+		String newName = oldName + ""X"";
+		pet7.setName(newName);
+		this.owners.save(owner6);
+
+		owner6 = this.owners.findById(6);
+		pet7 = owner6.getPet(7);
+		assertThat(pet7.getName()).isEqualTo(newName);
+	}
+"
+org.springframework.samples.petclinic.service.ClinicServiceTests.shouldFindVets,ClinicServiceTests.java,"void shouldFindVets() {
+		Collection<Vet> vets = this.vets.findAll();
+
+		Vet vet = EntityUtils.getById(vets, Vet.class, 3);
+		assertThat(vet.getLastName()).isEqualTo(""Douglas"");
+		assertThat(vet.getNrOfSpecialties()).isEqualTo(2);
+		assertThat(vet.getSpecialties().get(0).getName()).isEqualTo(""dentistry"");
+		assertThat(vet.getSpecialties().get(1).getName()).isEqualTo(""surgery"");
+	}
+"
+org.springframework.samples.petclinic.service.ClinicServiceTests.shouldAddNewVisitForPet,ClinicServiceTests.java,"void shouldAddNewVisitForPet() {
+		Owner owner6 = this.owners.findById(6);
+		Pet pet7 = owner6.getPet(7);
+		int found = pet7.getVisits().size();
+		Visit visit = new Visit();
+		visit.setDescription(""test"");
+
+		owner6.addVisit(pet7.getId(), visit);
+		this.owners.save(owner6);
+
+		owner6 = this.owners.findById(6);
+
+		assertThat(pet7.getVisits()) //
+			.hasSize(found + 1) //
+			.allMatch(value -> value.getId() != null);
+	}
+"
+org.springframework.samples.petclinic.service.ClinicServiceTests.shouldFindVisitsByPetId,ClinicServiceTests.java,"void shouldFindVisitsByPetId() throws Exception {
+		Owner owner6 = this.owners.findById(6);
+		Pet pet7 = owner6.getPet(7);
+		Collection<Visit> visits = pet7.getVisits();
+
+		assertThat(visits) //
+			.hasSize(2) //
+			.element(0)
+			.extracting(Visit::getDate)
+			.isNotNull();
+	}
+"
+org.springframework.samples.petclinic.PetClinicRuntimeHints.registerHints,PetClinicRuntimeHints.java,"void registerHints(RuntimeHints hints, ClassLoader classLoader) {
+		hints.resources().registerPattern(""db/*""); // https://github.com/spring-projects/spring-boot/issues/32654
+		hints.resources().registerPattern(""messages/*"");
+		hints.resources().registerPattern(""META-INF/resources/webjars/*"");
+	}
+"
+org.springframework.samples.petclinic.PetClinicApplication.main,PetClinicApplication.java,"void main(String[] args) {
+		SpringApplication.run(PetClinicApplication.class, args);
+	}
+"
+org.springframework.samples.petclinic.vet.Vet.getSpecialtiesInternal,Vet.java,"Set<Specialty> getSpecialtiesInternal() {
+		if (this.specialties == null) {
+			this.specialties = new HashSet<>();
+		}
+		return this.specialties;
+	}
+"
+org.springframework.samples.petclinic.vet.Vet.setSpecialtiesInternal,Vet.java,"void setSpecialtiesInternal(Set<Specialty> specialties) {
+		this.specialties = specialties;
+	}
+"
+org.springframework.samples.petclinic.vet.Vet.getSpecialties,Vet.java,"List<Specialty> getSpecialties() {
+		List<Specialty> sortedSpecs = new ArrayList<>(getSpecialtiesInternal());
+		PropertyComparator.sort(sortedSpecs, new MutableSortDefinition(""name"", true, true));
+		return Collections.unmodifiableList(sortedSpecs);
+	}
+"
+org.springframework.samples.petclinic.vet.Vet.getNrOfSpecialties,Vet.java,"int getNrOfSpecialties() {
+		return getSpecialtiesInternal().size();
+	}
+"
+org.springframework.samples.petclinic.vet.Vet.addSpecialty,Vet.java,"void addSpecialty(Specialty specialty) {
+		getSpecialtiesInternal().add(specialty);
+	}
+"
+org.springframework.samples.petclinic.vet.VetController.showVetList,VetController.java,"String showVetList(@RequestParam(defaultValue = ""1"") int page, Model model) {
+		// Here we are returning an object of type 'Vets' rather than a collection of Vet
+		// objects so it is simpler for Object-Xml mapping
+		Vets vets = new Vets();
+		Page<Vet> paginated = findPaginated(page);
+		vets.getVetList().addAll(paginated.toList());
+		return addPaginationModel(page, paginated, model);
+
+	}
+"
+org.springframework.samples.petclinic.vet.VetController.addPaginationModel,VetController.java,"String addPaginationModel(int page, Page<Vet> paginated, Model model) {
+		List<Vet> listVets = paginated.getContent();
+		model.addAttribute(""currentPage"", page);
+		model.addAttribute(""totalPages"", paginated.getTotalPages());
+		model.addAttribute(""totalItems"", paginated.getTotalElements());
+		model.addAttribute(""listVets"", listVets);
+		return ""vets/vetList"";
+	}
+"
+org.springframework.samples.petclinic.vet.VetController.findPaginated,VetController.java,"Page<Vet> findPaginated(int page) {
+		int pageSize = 5;
+		Pageable pageable = PageRequest.of(page - 1, pageSize);
+		return vetRepository.findAll(pageable);
+	}
+"
+org.springframework.samples.petclinic.vet.VetController.showResourcesVetList,VetController.java,"Vets showResourcesVetList() {
+		// Here we are returning an object of type 'Vets' rather than a collection of Vet
+		// objects so it is simpler for JSon/Object mapping
+		Vets vets = new Vets();
+		vets.getVetList().addAll(this.vetRepository.findAll());
+		return vets;
+	}
+"
+org.springframework.samples.petclinic.vet.Vets.getVetList,Vets.java,"List<Vet> getVetList() {
+		if (vets == null) {
+			vets = new ArrayList<>();
+		}
+		return vets;
+	}
+"
+org.springframework.samples.petclinic.owner.Pet.setBirthDate,Pet.java,"void setBirthDate(LocalDate birthDate) {
+		this.birthDate = birthDate;
+	}
+"
+org.springframework.samples.petclinic.owner.Pet.getBirthDate,Pet.java,"LocalDate getBirthDate() {
+		return this.birthDate;
+	}
+"
+org.springframework.samples.petclinic.owner.Pet.getType,Pet.java,"PetType getType() {
+		return this.type;
+	}
+"
+org.springframework.samples.petclinic.owner.Pet.setType,Pet.java,"void setType(PetType type) {
+		this.type = type;
+	}
+"
+org.springframework.samples.petclinic.owner.Pet.getVisits,Pet.java,"Collection<Visit> getVisits() {
+		return this.visits;
+	}
+"
+org.springframework.samples.petclinic.owner.Pet.addVisit,Pet.java,"void addVisit(Visit visit) {
+		getVisits().add(visit);
+	}
+"
+org.springframework.samples.petclinic.owner.VisitController.setAllowedFields,VisitController.java,"void setAllowedFields(WebDataBinder dataBinder) {
+		dataBinder.setDisallowedFields(""id"");
+	}
+"
+org.springframework.samples.petclinic.owner.VisitController.loadPetWithVisit,VisitController.java,"Visit loadPetWithVisit(@PathVariable(""ownerId"") int ownerId, @PathVariable(""petId"") int petId,
+			Map<String, Object> model) {
+		Owner owner = this.owners.findById(ownerId);
+
+		Pet pet = owner.getPet(petId);
+		model.put(""pet"", pet);
+		model.put(""owner"", owner);
+
+		Visit visit = new Visit();
+		pet.addVisit(visit);
+		return visit;
+	}
+"
+org.springframework.samples.petclinic.owner.VisitController.initNewVisitForm,VisitController.java,"String initNewVisitForm() {
+		return ""pets/createOrUpdateVisitForm"";
+	}
+"
+org.springframework.samples.petclinic.owner.VisitController.processNewVisitForm,VisitController.java,"String processNewVisitForm(@ModelAttribute Owner owner, @PathVariable int petId, @Valid Visit visit,
+			BindingResult result) {
+		if (result.hasErrors()) {
+			return ""pets/createOrUpdateVisitForm"";
+		}
+
+		owner.addVisit(petId, visit);
+		this.owners.save(owner);
+		return ""redirect:/owners/{ownerId}"";
+	}
+"
+org.springframework.samples.petclinic.owner.PetTypeFormatter.print,PetTypeFormatter.java,"String print(PetType petType, Locale locale) {
+		return petType.getName();
+	}
+"
+org.springframework.samples.petclinic.owner.PetTypeFormatter.parse,PetTypeFormatter.java,"PetType parse(String text, Locale locale) throws ParseException {
+		Collection<PetType> findPetTypes = this.owners.findPetTypes();
+		for (PetType type : findPetTypes) {
+			if (type.getName().equals(text)) {
+				return type;
+			}
+		}
+		throw new ParseException(""type not found: "" + text, 0);
+	}
+"
+org.springframework.samples.petclinic.owner.OwnerController.setAllowedFields,OwnerController.java,"void setAllowedFields(WebDataBinder dataBinder) {
+		dataBinder.setDisallowedFields(""id"");
+	}
+"
+org.springframework.samples.petclinic.owner.OwnerController.findOwner,OwnerController.java,"Owner findOwner(@PathVariable(name = ""ownerId"", required = false) Integer ownerId) {
+		return ownerId == null ? new Owner() : this.owners.findById(ownerId);
+	}
+"
+org.springframework.samples.petclinic.owner.OwnerController.initCreationForm,OwnerController.java,"String initCreationForm(Map<String, Object> model) {
+		Owner owner = new Owner();
+		model.put(""owner"", owner);
+		return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
+	}
+"
+org.springframework.samples.petclinic.owner.OwnerController.processCreationForm,OwnerController.java,"String processCreationForm(@Valid Owner owner, BindingResult result) {
+		if (result.hasErrors()) {
+			return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
+		}
+
+		this.owners.save(owner);
+		return ""redirect:/owners/"" + owner.getId();
+	}
+"
+org.springframework.samples.petclinic.owner.OwnerController.initFindForm,OwnerController.java,"String initFindForm() {
+		return ""owners/findOwners"";
+	}
+"
+org.springframework.samples.petclinic.owner.OwnerController.processFindForm,OwnerController.java,"String processFindForm(@RequestParam(defaultValue = ""1"") int page, Owner owner, BindingResult result,
+			Model model) {
+		// allow parameterless GET request for /owners to return all records
+		if (owner.getLastName() == null) {
+			owner.setLastName(""""); // empty string signifies broadest possible search
+		}
+
+		// find owners by last name
+		Page<Owner> ownersResults = findPaginatedForOwnersLastName(page, owner.getLastName());
+		if (ownersResults.isEmpty()) {
+			// no owners found
+			result.rejectValue(""lastName"", ""notFound"", ""not found"");
+			return ""owners/findOwners"";
+		}
+
+		if (ownersResults.getTotalElements() == 1) {
+			// 1 owner found
+			owner = ownersResults.iterator().next();
+			return ""redirect:/owners/"" + owner.getId();
+		}
+
+		// multiple owners found
+		return addPaginationModel(page, model, ownersResults);
+	}
+"
+org.springframework.samples.petclinic.owner.OwnerController.addPaginationModel,OwnerController.java,"String addPaginationModel(int page, Model model, Page<Owner> paginated) {
+		model.addAttribute(""listOwners"", paginated);
+		List<Owner> listOwners = paginated.getContent();
+		model.addAttribute(""currentPage"", page);
+		model.addAttribute(""totalPages"", paginated.getTotalPages());
+		model.addAttribute(""totalItems"", paginated.getTotalElements());
+		model.addAttribute(""listOwners"", listOwners);
+		return ""owners/ownersList"";
+	}
+"
+org.springframework.samples.petclinic.owner.OwnerController.findPaginatedForOwnersLastName,OwnerController.java,"Page<Owner> findPaginatedForOwnersLastName(int page, String lastname) {
+		int pageSize = 5;
+		Pageable pageable = PageRequest.of(page - 1, pageSize);
+		return owners.findByLastName(lastname, pageable);
+	}
+"
+org.springframework.samples.petclinic.owner.OwnerController.initUpdateOwnerForm,OwnerController.java,"String initUpdateOwnerForm(@PathVariable(""ownerId"") int ownerId, Model model) {
+		Owner owner = this.owners.findById(ownerId);
+		model.addAttribute(owner);
+		return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
+	}
+"
+org.springframework.samples.petclinic.owner.OwnerController.processUpdateOwnerForm,OwnerController.java,"String processUpdateOwnerForm(@Valid Owner owner, BindingResult result,
+			@PathVariable(""ownerId"") int ownerId) {
+		if (result.hasErrors()) {
+			return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
+		}
+
+		owner.setId(ownerId);
+		this.owners.save(owner);
+		return ""redirect:/owners/{ownerId}"";
+	}
+"
+org.springframework.samples.petclinic.owner.OwnerController.showOwner,OwnerController.java,"ModelAndView showOwner(@PathVariable(""ownerId"") int ownerId) {
+		ModelAndView mav = new ModelAndView(""owners/ownerDetails"");
+		Owner owner = this.owners.findById(ownerId);
+		mav.addObject(owner);
+		return mav;
+	}
+"
+org.springframework.samples.petclinic.owner.PetController.populatePetTypes,PetController.java,"Collection<PetType> populatePetTypes() {
+		return this.owners.findPetTypes();
+	}
+"
+org.springframework.samples.petclinic.owner.PetController.findOwner,PetController.java,"Owner findOwner(@PathVariable(""ownerId"") int ownerId) {
+		return this.owners.findById(ownerId);
+	}
+"
+org.springframework.samples.petclinic.owner.PetController.findPet,PetController.java,"Pet findPet(@PathVariable(""ownerId"") int ownerId,
+			@PathVariable(name = ""petId"", required = false) Integer petId) {
+		return petId == null ? new Pet() : this.owners.findById(ownerId).getPet(petId);
+	}
+"
+org.springframework.samples.petclinic.owner.PetController.initOwnerBinder,PetController.java,"void initOwnerBinder(WebDataBinder dataBinder) {
+		dataBinder.setDisallowedFields(""id"");
+	}
+"
+org.springframework.samples.petclinic.owner.PetController.initPetBinder,PetController.java,"void initPetBinder(WebDataBinder dataBinder) {
+		dataBinder.setValidator(new PetValidator());
+	}
+"
+org.springframework.samples.petclinic.owner.PetController.initCreationForm,PetController.java,"String initCreationForm(Owner owner, ModelMap model) {
+		Pet pet = new Pet();
+		owner.addPet(pet);
+		model.put(""pet"", pet);
+		return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
+	}
+"
+org.springframework.samples.petclinic.owner.PetController.processCreationForm,PetController.java,"String processCreationForm(Owner owner, @Valid Pet pet, BindingResult result, ModelMap model) {
+		if (StringUtils.hasLength(pet.getName()) && pet.isNew() && owner.getPet(pet.getName(), true) != null) {
+			result.rejectValue(""name"", ""duplicate"", ""already exists"");
+		}
+
+		owner.addPet(pet);
+		if (result.hasErrors()) {
+			model.put(""pet"", pet);
+			return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
+		}
+
+		this.owners.save(owner);
+		return ""redirect:/owners/{ownerId}"";
+	}
+"
+org.springframework.samples.petclinic.owner.PetController.initUpdateForm,PetController.java,"String initUpdateForm(Owner owner, @PathVariable(""petId"") int petId, ModelMap model) {
+		Pet pet = owner.getPet(petId);
+		model.put(""pet"", pet);
+		return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
+	}
+"
+org.springframework.samples.petclinic.owner.PetController.processUpdateForm,PetController.java,"String processUpdateForm(@Valid Pet pet, BindingResult result, Owner owner, ModelMap model) {
+		if (result.hasErrors()) {
+			model.put(""pet"", pet);
+			return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
+		}
+
+		owner.addPet(pet);
+		this.owners.save(owner);
+		return ""redirect:/owners/{ownerId}"";
+	}
+"
+org.springframework.samples.petclinic.owner.PetValidator.validate,PetValidator.java,"void validate(Object obj, Errors errors) {
+		Pet pet = (Pet) obj;
+		String name = pet.getName();
+		// name validation
+		if (!StringUtils.hasLength(name)) {
+			errors.rejectValue(""name"", REQUIRED, REQUIRED);
+		}
+
+		// type validation
+		if (pet.isNew() && pet.getType() == null) {
+			errors.rejectValue(""type"", REQUIRED, REQUIRED);
+		}
+
+		// birth date validation
+		if (pet.getBirthDate() == null) {
+			errors.rejectValue(""birthDate"", REQUIRED, REQUIRED);
+		}
+	}
+"
+org.springframework.samples.petclinic.owner.PetValidator.supports,PetValidator.java,"boolean supports(Class<?> clazz) {
+		return Pet.class.isAssignableFrom(clazz);
+	}
+"
+org.springframework.samples.petclinic.owner.Owner.getAddress,Owner.java,"String getAddress() {
+		return this.address;
+	}
+"
+org.springframework.samples.petclinic.owner.Owner.setAddress,Owner.java,"void setAddress(String address) {
+		this.address = address;
+	}
+"
+org.springframework.samples.petclinic.owner.Owner.getCity,Owner.java,"String getCity() {
+		return this.city;
+	}
+"
+org.springframework.samples.petclinic.owner.Owner.setCity,Owner.java,"void setCity(String city) {
+		this.city = city;
+	}
+"
+org.springframework.samples.petclinic.owner.Owner.getTelephone,Owner.java,"String getTelephone() {
+		return this.telephone;
+	}
+"
+org.springframework.samples.petclinic.owner.Owner.setTelephone,Owner.java,"void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
+"
+org.springframework.samples.petclinic.owner.Owner.getPets,Owner.java,"List<Pet> getPets() {
+		return this.pets;
+	}
+"
+org.springframework.samples.petclinic.owner.Owner.addPet,Owner.java,"void addPet(Pet pet) {
+		if (pet.isNew()) {
+			getPets().add(pet);
+		}
+	}
+"
+org.springframework.samples.petclinic.owner.Owner.getPet,Owner.java,"Pet getPet(String name) {
+		return getPet(name, false);
+	}
+"
+org.springframework.samples.petclinic.owner.Owner.getPet,Owner.java,"Pet getPet(Integer id) {
+		for (Pet pet : getPets()) {
+			if (!pet.isNew()) {
+				Integer compId = pet.getId();
+				if (compId.equals(id)) {
+					return pet;
+				}
+			}
+		}
+		return null;
+	}
+"
+org.springframework.samples.petclinic.owner.Owner.getPet,Owner.java,"Pet getPet(String name, boolean ignoreNew) {
+		name = name.toLowerCase();
+		for (Pet pet : getPets()) {
+			if (!ignoreNew || !pet.isNew()) {
+				String compName = pet.getName();
+				compName = compName == null ? """" : compName.toLowerCase();
+				if (compName.equals(name)) {
+					return pet;
+				}
+			}
+		}
+		return null;
+	}
+"
+org.springframework.samples.petclinic.owner.Owner.toString,Owner.java,"String toString() {
+		return new ToStringCreator(this).append(""id"", this.getId())
+			.append(""new"", this.isNew())
+			.append(""lastName"", this.getLastName())
+			.append(""firstName"", this.getFirstName())
+			.append(""address"", this.address)
+			.append(""city"", this.city)
+			.append(""telephone"", this.telephone)
+			.toString();
+	}
+"
+org.springframework.samples.petclinic.owner.Owner.addVisit,Owner.java,"void addVisit(Integer petId, Visit visit) {
+
+		Assert.notNull(petId, ""Pet identifier must not be null!"");
+		Assert.notNull(visit, ""Visit must not be null!"");
+
+		Pet pet = getPet(petId);
+
+		Assert.notNull(pet, ""Invalid Pet identifier!"");
+
+		pet.addVisit(visit);
+	}
+"
+org.springframework.samples.petclinic.owner.Visit.getDate,Visit.java,"LocalDate getDate() {
+		return this.date;
+	}
+"
+org.springframework.samples.petclinic.owner.Visit.setDate,Visit.java,"void setDate(LocalDate date) {
+		this.date = date;
+	}
+"
+org.springframework.samples.petclinic.owner.Visit.getDescription,Visit.java,"String getDescription() {
+		return this.description;
+	}
+"
+org.springframework.samples.petclinic.owner.Visit.setDescription,Visit.java,"void setDescription(String description) {
+		this.description = description;
+	}
+"
+org.springframework.samples.petclinic.system.WelcomeController.welcome,WelcomeController.java,"String welcome() {
+		return ""welcome"";
+	}
+"
+org.springframework.samples.petclinic.system.CacheConfiguration.petclinicCacheConfigurationCustomizer,CacheConfiguration.java,"JCacheManagerCustomizer petclinicCacheConfigurationCustomizer() {
+		return cm -> cm.createCache(""vets"", cacheConfiguration());
+	}
+"
+org.springframework.samples.petclinic.system.CacheConfiguration.cacheConfiguration,CacheConfiguration.java,"javax.cache.configuration.Configuration<Object, Object> cacheConfiguration() {
+		return new MutableConfiguration<>().setStatisticsEnabled(true);
+	}
+"
+org.springframework.samples.petclinic.system.CrashController.triggerException,CrashController.java,"String triggerException() {
+		throw new RuntimeException(
+				""Expected: controller used to showcase what "" + ""happens when an exception is thrown"");
+	}
+"
+org.springframework.samples.petclinic.model.BaseEntity.getId,BaseEntity.java,"Integer getId() {
+		return id;
+	}
+"
+org.springframework.samples.petclinic.model.BaseEntity.setId,BaseEntity.java,"void setId(Integer id) {
+		this.id = id;
+	}
+"
+org.springframework.samples.petclinic.model.BaseEntity.isNew,BaseEntity.java,"boolean isNew() {
+		return this.id == null;
+	}
+"
+org.springframework.samples.petclinic.model.Person.getFirstName,Person.java,"String getFirstName() {
+		return this.firstName;
+	}
+"
+org.springframework.samples.petclinic.model.Person.setFirstName,Person.java,"void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+"
+org.springframework.samples.petclinic.model.Person.getLastName,Person.java,"String getLastName() {
+		return this.lastName;
+	}
+"
+org.springframework.samples.petclinic.model.Person.setLastName,Person.java,"void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+"
+org.springframework.samples.petclinic.model.NamedEntity.getName,NamedEntity.java,"String getName() {
+		return this.name;
+	}
+"
+org.springframework.samples.petclinic.model.NamedEntity.setName,NamedEntity.java,"void setName(String name) {
+		this.name = name;
+	}
+"
+org.springframework.samples.petclinic.model.NamedEntity.toString,NamedEntity.java,"String toString() {
+		return this.getName();
+	}
+"
+org.springframework.samples.petclinic.model.BaseEntity.BaseEntity,BaseEntity.java,"public BaseEntity() {
+    super();
+}"
+org.springframework.samples.petclinic.vet.Vets.Vets,Vets.java,"public Vets() {
+    super();
+}"
+org.springframework.samples.petclinic.vet.Vet.Vet,Vet.java,"public Vet() {
+    super();
+}"
+org.springframework.samples.petclinic.model.NamedEntity.NamedEntity,NamedEntity.java,"public NamedEntity() {
+    super();
+}"
+org.springframework.samples.petclinic.owner.Visit.Visit,Visit.java,"public Visit() {
+    super();
+}"
+org.springframework.samples.petclinic.vet.Specialty.Specialty,Specialty.java,"public Specialty() {
+    super();
+}"
+org.springframework.samples.petclinic.owner.PetValidator.PetValidator,PetValidator.java,"public PetValidator() {
+    super();
+}"
+org.springframework.samples.petclinic.owner.PetTypeFormatter.PetTypeFormatter,PetTypeFormatter.java,"public PetTypeFormatter() {
+    super();
+}"
+org.springframework.samples.petclinic.owner.PetType.PetType,PetType.java,"public PetType() {
+    super();
+}"
+org.springframework.samples.petclinic.owner.Owner.Owner,Owner.java,"public Owner() {
+    super();
+}"
+org.springframework.samples.petclinic.owner.Pet.Pet,Pet.java,"public Pet() {
+    super();
+}"
+org.springframework.samples.petclinic.model.Person.Person,Person.java,"public Person() {
+    super();
+}"

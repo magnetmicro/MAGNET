@@ -1,0 +1,3975 @@
+com.rafsan.inventory.HibernateUtil.setSessionFactory,HibernateUtil.java,"boolean setSessionFactory() {
+        try {
+            sessionFactory = new Configuration()
+                    .configure()
+                    .buildSessionFactory();
+        } catch (HibernateException ex) {
+            return false;
+            
+        }
+        
+        return true;
+    }
+"
+com.rafsan.inventory.HibernateUtil.getSessionFactory,HibernateUtil.java,"SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
+"
+com.rafsan.inventory.MainApp.start,MainApp.java,"void start(Stage stage) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource(""/fxml/Login.fxml""));
+        root.setOnMousePressed((MouseEvent event) -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+        root.setOnMouseDragged((MouseEvent event) -> {
+            stage.setX(event.getScreenX() - xOffset);
+            stage.setY(event.getScreenY() - yOffset);
+        });
+        Scene scene = new Scene(root);
+        stage.setTitle(""Inventory:: Version 1.0"");
+        stage.getIcons().add(new Image(""/images/logo.png""));
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setScene(scene);
+        stage.show();
+    }
+"
+com.rafsan.inventory.MainApp.main,MainApp.java,"void main(String[] args) {
+
+        if (HibernateUtil.setSessionFactory()) {
+            launch(args);
+            HibernateUtil.getSessionFactory().close();
+        } else {
+            Platform.runLater(() -> {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle(""An error has occured!"");
+                alert.setHeaderText(""Database Connection Error!"");
+                alert.setContentText(""Please contact the developer"");
+                alert.showAndWait();
+                Platform.exit();
+            });
+        }
+
+    }
+"
+com.rafsan.inventory.entity.Product.getId,Product.java,"long getId() {
+        return id;
+    }
+"
+com.rafsan.inventory.entity.Product.setId,Product.java,"void setId(long id) {
+        this.id = id;
+    }
+"
+com.rafsan.inventory.entity.Product.getProductName,Product.java,"String getProductName() {
+        return productName;
+    }
+"
+com.rafsan.inventory.entity.Product.setProductName,Product.java,"void setProductName(String productName) {
+        this.productName = productName;
+    }
+"
+com.rafsan.inventory.entity.Product.getPrice,Product.java,"double getPrice() {
+        return price;
+    }
+"
+com.rafsan.inventory.entity.Product.setPrice,Product.java,"void setPrice(double price) {
+        this.price = price;
+    }
+"
+com.rafsan.inventory.entity.Product.getQuantity,Product.java,"double getQuantity() {
+        return quantity;
+    }
+"
+com.rafsan.inventory.entity.Product.setQuantity,Product.java,"void setQuantity(double quantity) {
+        this.quantity = quantity;
+    }
+"
+com.rafsan.inventory.entity.Product.getDescription,Product.java,"String getDescription() {
+        return description;
+    }
+"
+com.rafsan.inventory.entity.Product.setDescription,Product.java,"void setDescription(String description) {
+        this.description = description;
+    }
+"
+com.rafsan.inventory.entity.Product.getCategory,Product.java,"Category getCategory() {
+        return category;
+    }
+"
+com.rafsan.inventory.entity.Product.setCategory,Product.java,"void setCategory(Category category) {
+        this.category = category;
+    }
+"
+com.rafsan.inventory.entity.Product.getSupplier,Product.java,"Supplier getSupplier() {
+        return supplier;
+    }
+"
+com.rafsan.inventory.entity.Product.setSupplier,Product.java,"void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
+    }
+"
+com.rafsan.inventory.entity.Product.toString,Product.java,"String toString() {
+        return ""Product{"" + ""id="" + id + 
+                "", productName="" + productName + 
+                "", price="" + price + 
+                "", quantity="" + quantity + 
+                "", description="" + description + 
+                "", category="" + category + 
+                "", supplier="" + supplier + '}';
+    }
+"
+com.rafsan.inventory.entity.Purchase.getId,Purchase.java,"long getId() {
+        return id;
+    }
+"
+com.rafsan.inventory.entity.Purchase.setId,Purchase.java,"void setId(long id) {
+        this.id = id;
+    }
+"
+com.rafsan.inventory.entity.Purchase.getProduct,Purchase.java,"Product getProduct() {
+        return product;
+    }
+"
+com.rafsan.inventory.entity.Purchase.setProduct,Purchase.java,"void setProduct(Product product) {
+        this.product = product;
+    }
+"
+com.rafsan.inventory.entity.Purchase.getSupplier,Purchase.java,"Supplier getSupplier() {
+        return supplier;
+    }
+"
+com.rafsan.inventory.entity.Purchase.setSupplier,Purchase.java,"void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
+    }
+"
+com.rafsan.inventory.entity.Purchase.getQuantity,Purchase.java,"double getQuantity() {
+        return quantity;
+    }
+"
+com.rafsan.inventory.entity.Purchase.setQuantity,Purchase.java,"void setQuantity(double quantity) {
+        this.quantity = quantity;
+    }
+"
+com.rafsan.inventory.entity.Purchase.getPrice,Purchase.java,"double getPrice() {
+        return price;
+    }
+"
+com.rafsan.inventory.entity.Purchase.setPrice,Purchase.java,"void setPrice(double price) {
+        this.price = price;
+    }
+"
+com.rafsan.inventory.entity.Purchase.getTotal,Purchase.java,"double getTotal() {
+        return total;
+    }
+"
+com.rafsan.inventory.entity.Purchase.setTotal,Purchase.java,"void setTotal(double total) {
+        this.total = total;
+    }
+"
+com.rafsan.inventory.entity.Purchase.getDate,Purchase.java,"String getDate() {
+        return date;
+    }
+"
+com.rafsan.inventory.entity.Purchase.setDate,Purchase.java,"void setDate(String date) {
+        this.date = date;
+    }
+"
+com.rafsan.inventory.entity.Purchase.toString,Purchase.java,"String toString() {
+        return ""Purchase{"" + ""id="" + id + 
+                "", product="" + product + 
+                "", supplier="" + supplier + 
+                "", quantity="" + quantity + 
+                "", price="" + price + 
+                "", total="" + total + 
+                "", date="" + date + '}';
+    }
+"
+com.rafsan.inventory.entity.Invoice.getId,Invoice.java,"String getId() {
+        return id;
+    }
+"
+com.rafsan.inventory.entity.Invoice.setId,Invoice.java,"void setId(String id) {
+        this.id = id;
+    }
+"
+com.rafsan.inventory.entity.Invoice.getEmployee,Invoice.java,"Employee getEmployee() {
+        return employee;
+    }
+"
+com.rafsan.inventory.entity.Invoice.setEmployee,Invoice.java,"void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+"
+com.rafsan.inventory.entity.Invoice.getTotal,Invoice.java,"double getTotal() {
+        return total;
+    }
+"
+com.rafsan.inventory.entity.Invoice.setTotal,Invoice.java,"void setTotal(double total) {
+        this.total = total;
+    }
+"
+com.rafsan.inventory.entity.Invoice.getVat,Invoice.java,"double getVat() {
+        return vat;
+    }
+"
+com.rafsan.inventory.entity.Invoice.setVat,Invoice.java,"void setVat(double vat) {
+        this.vat = vat;
+    }
+"
+com.rafsan.inventory.entity.Invoice.getDiscount,Invoice.java,"double getDiscount() {
+        return discount;
+    }
+"
+com.rafsan.inventory.entity.Invoice.setDiscount,Invoice.java,"void setDiscount(double discount) {
+        this.discount = discount;
+    }
+"
+com.rafsan.inventory.entity.Invoice.getPayable,Invoice.java,"double getPayable() {
+        return payable;
+    }
+"
+com.rafsan.inventory.entity.Invoice.setPayable,Invoice.java,"void setPayable(double payable) {
+        this.payable = payable;
+    }
+"
+com.rafsan.inventory.entity.Invoice.getPaid,Invoice.java,"double getPaid() {
+        return paid;
+    }
+"
+com.rafsan.inventory.entity.Invoice.setPaid,Invoice.java,"void setPaid(double paid) {
+        this.paid = paid;
+    }
+"
+com.rafsan.inventory.entity.Invoice.getReturned,Invoice.java,"double getReturned() {
+        return returned;
+    }
+"
+com.rafsan.inventory.entity.Invoice.setReturned,Invoice.java,"void setReturned(double returned) {
+        this.returned = returned;
+    }
+"
+com.rafsan.inventory.entity.Invoice.getDate,Invoice.java,"String getDate() {
+        return date;
+    }
+"
+com.rafsan.inventory.entity.Invoice.setDate,Invoice.java,"void setDate(String date) {
+        this.date = date;
+    }
+"
+com.rafsan.inventory.entity.Payment.getSubTotal,Payment.java,"double getSubTotal() {
+        return subTotal;
+    }
+"
+com.rafsan.inventory.entity.Payment.setSubTotal,Payment.java,"void setSubTotal(double subTotal) {
+        this.subTotal = subTotal;
+    }
+"
+com.rafsan.inventory.entity.Payment.getVat,Payment.java,"double getVat() {
+        return vat;
+    }
+"
+com.rafsan.inventory.entity.Payment.setVat,Payment.java,"void setVat(double vat) {
+        this.vat = vat;
+    }
+"
+com.rafsan.inventory.entity.Payment.getDiscount,Payment.java,"double getDiscount() {
+        return discount;
+    }
+"
+com.rafsan.inventory.entity.Payment.setDiscount,Payment.java,"void setDiscount(double discount) {
+        this.discount = discount;
+    }
+"
+com.rafsan.inventory.entity.Payment.getPayable,Payment.java,"double getPayable() {
+        return payable;
+    }
+"
+com.rafsan.inventory.entity.Payment.setPayable,Payment.java,"void setPayable(double payable) {
+        this.payable = payable;
+    }
+"
+com.rafsan.inventory.entity.Supplier.getId,Supplier.java,"long getId() {
+        return id;
+    }
+"
+com.rafsan.inventory.entity.Supplier.setId,Supplier.java,"void setId(long id) {
+        this.id = id;
+    }
+"
+com.rafsan.inventory.entity.Supplier.getName,Supplier.java,"String getName() {
+        return name;
+    }
+"
+com.rafsan.inventory.entity.Supplier.setName,Supplier.java,"void setName(String name) {
+        this.name = name;
+    }
+"
+com.rafsan.inventory.entity.Supplier.getPhone,Supplier.java,"String getPhone() {
+        return phone;
+    }
+"
+com.rafsan.inventory.entity.Supplier.setPhone,Supplier.java,"void setPhone(String phone) {
+        this.phone = phone;
+    }
+"
+com.rafsan.inventory.entity.Supplier.getAddress,Supplier.java,"String getAddress() {
+        return address;
+    }
+"
+com.rafsan.inventory.entity.Supplier.setAddress,Supplier.java,"void setAddress(String address) {
+        this.address = address;
+    }
+"
+com.rafsan.inventory.entity.Category.getId,Category.java,"long getId() {
+        return id;
+    }
+"
+com.rafsan.inventory.entity.Category.setId,Category.java,"void setId(long id) {
+        this.id = id;
+    }
+"
+com.rafsan.inventory.entity.Category.getType,Category.java,"String getType() {
+        return type;
+    }
+"
+com.rafsan.inventory.entity.Category.setType,Category.java,"void setType(String type) {
+        this.type = type;
+    }
+"
+com.rafsan.inventory.entity.Category.getDescription,Category.java,"String getDescription() {
+        return description;
+    }
+"
+com.rafsan.inventory.entity.Category.setDescription,Category.java,"void setDescription(String description) {
+        this.description = description;
+    }
+"
+com.rafsan.inventory.entity.Sale.getId,Sale.java,"long getId() {
+        return id;
+    }
+"
+com.rafsan.inventory.entity.Sale.setId,Sale.java,"void setId(long id) {
+        this.id = id;
+    }
+"
+com.rafsan.inventory.entity.Sale.getInvoice,Sale.java,"Invoice getInvoice() {
+        return invoice;
+    }
+"
+com.rafsan.inventory.entity.Sale.setInvoice,Sale.java,"void setInvoice(Invoice invoice) {
+        this.invoice = invoice;
+    }
+"
+com.rafsan.inventory.entity.Sale.getProduct,Sale.java,"Product getProduct() {
+        return product;
+    }
+"
+com.rafsan.inventory.entity.Sale.setProduct,Sale.java,"void setProduct(Product product) {
+        this.product = product;
+    }
+"
+com.rafsan.inventory.entity.Sale.getQuantity,Sale.java,"double getQuantity() {
+        return quantity;
+    }
+"
+com.rafsan.inventory.entity.Sale.setQuantity,Sale.java,"void setQuantity(double quantity) {
+        this.quantity = quantity;
+    }
+"
+com.rafsan.inventory.entity.Sale.getPrice,Sale.java,"double getPrice() {
+        return price;
+    }
+"
+com.rafsan.inventory.entity.Sale.setPrice,Sale.java,"void setPrice(double price) {
+        this.price = price;
+    }
+"
+com.rafsan.inventory.entity.Sale.getTotal,Sale.java,"double getTotal() {
+        return total;
+    }
+"
+com.rafsan.inventory.entity.Sale.setTotal,Sale.java,"void setTotal(double total) {
+        this.total = total;
+    }
+"
+com.rafsan.inventory.entity.Sale.getDate,Sale.java,"String getDate() {
+        return date;
+    }
+"
+com.rafsan.inventory.entity.Sale.setDate,Sale.java,"void setDate(String date) {
+        this.date = date;
+    }
+"
+com.rafsan.inventory.entity.Sale.toString,Sale.java,"String toString() {
+        return ""Sale{"" + ""id="" + id + 
+                "", invoice="" + invoice + 
+                "", product="" + product + 
+                "", quantity="" + quantity + 
+                "", price="" + price + 
+                "", total="" + total + 
+                "", date="" + date + '}';
+    }
+"
+com.rafsan.inventory.entity.Employee.getId,Employee.java,"long getId() {
+        return id;
+    }
+"
+com.rafsan.inventory.entity.Employee.setId,Employee.java,"void setId(long id) {
+        this.id = id;
+    }
+"
+com.rafsan.inventory.entity.Employee.getFirstName,Employee.java,"String getFirstName() {
+        return firstName;
+    }
+"
+com.rafsan.inventory.entity.Employee.setFirstName,Employee.java,"void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+"
+com.rafsan.inventory.entity.Employee.getLastName,Employee.java,"String getLastName() {
+        return lastName;
+    }
+"
+com.rafsan.inventory.entity.Employee.setLastName,Employee.java,"void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+"
+com.rafsan.inventory.entity.Employee.getUserName,Employee.java,"String getUserName() {
+        return userName;
+    }
+"
+com.rafsan.inventory.entity.Employee.setUserName,Employee.java,"void setUserName(String userName) {
+        this.userName = userName;
+    }
+"
+com.rafsan.inventory.entity.Employee.getPassword,Employee.java,"String getPassword() {
+        return password;
+    }
+"
+com.rafsan.inventory.entity.Employee.setPassword,Employee.java,"void setPassword(String password) {
+        this.password = password;
+    }
+"
+com.rafsan.inventory.entity.Employee.getPhone,Employee.java,"String getPhone() {
+        return phone;
+    }
+"
+com.rafsan.inventory.entity.Employee.setPhone,Employee.java,"void setPhone(String phone) {
+        this.phone = phone;
+    }
+"
+com.rafsan.inventory.entity.Employee.getAddress,Employee.java,"String getAddress() {
+        return address;
+    }
+"
+com.rafsan.inventory.entity.Employee.setAddress,Employee.java,"void setAddress(String address) {
+        this.address = address;
+    }
+"
+com.rafsan.inventory.entity.Employee.getType,Employee.java,"String getType() {
+        return type;
+    }
+"
+com.rafsan.inventory.entity.Employee.setType,Employee.java,"void setType(String type) {
+        this.type = type;
+    }
+"
+com.rafsan.inventory.entity.Item.getItemName,Item.java,"String getItemName() {
+        return itemName;
+    }
+"
+com.rafsan.inventory.entity.Item.setItemName,Item.java,"void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+"
+com.rafsan.inventory.entity.Item.getUnitPrice,Item.java,"double getUnitPrice() {
+        return unitPrice;
+    }
+"
+com.rafsan.inventory.entity.Item.setUnitPrice,Item.java,"void setUnitPrice(double unitPrice) {
+        this.unitPrice = unitPrice;
+    }
+"
+com.rafsan.inventory.entity.Item.getQuantity,Item.java,"double getQuantity() {
+        return quantity;
+    }
+"
+com.rafsan.inventory.entity.Item.setQuantity,Item.java,"void setQuantity(double quantity) {
+        this.quantity = quantity;
+    }
+"
+com.rafsan.inventory.entity.Item.getTotal,Item.java,"double getTotal() {
+        return total;
+    }
+"
+com.rafsan.inventory.entity.Item.setTotal,Item.java,"void setTotal(double total) {
+        this.total = total;
+    }
+"
+com.rafsan.inventory.entity.Item.toString,Item.java,"String toString() {
+        return ""Item{"" + ""itemName="" + itemName + 
+                "", unitPrice="" + unitPrice + 
+                "", quantity="" + quantity + 
+                "", total="" + total + '}';
+    }
+"
+com.rafsan.inventory.pdf.PrintInvoice.generateReport,PrintInvoice.java,"void generateReport() {
+
+        try {
+            Document document = new Document();
+            FileOutputStream fs = new FileOutputStream(""Report.pdf"");
+            PdfWriter writer = PdfWriter.getInstance(document, fs);
+            document.open();
+
+            Paragraph paragraph = new Paragraph(""Product ID"");
+            document.add(paragraph);
+            addEmptyLine(paragraph, 5);
+
+            PdfContentByte cb = writer.getDirectContent();
+            BarcodeEAN codeEAN = new BarcodeEAN();
+            codeEAN.setCodeType(codeEAN.EAN13);
+            codeEAN.setCode(barcode);
+            document.add(codeEAN.createImageWithBarcode(cb, BaseColor.BLACK, BaseColor.DARK_GRAY));
+            addEmptyLine(paragraph, 5);
+
+            PdfPTable table = createTable();
+            document.add(table);
+
+            document.close();
+        } catch (DocumentException | FileNotFoundException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+"
+com.rafsan.inventory.pdf.PrintInvoice.createTable,PrintInvoice.java,"PdfPTable createTable() {
+
+        PdfPTable table = new PdfPTable(4);
+        PdfPCell c1 = new PdfPCell(new Phrase(""Item""));
+        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(c1);
+
+        c1 = new PdfPCell(new Phrase(""Price""));
+        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(c1);
+
+        c1 = new PdfPCell(new Phrase(""Quantity""));
+        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(c1);
+
+        c1 = new PdfPCell(new Phrase(""Total""));
+        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(c1);
+        table.setHeaderRows(1);
+
+        for (Item i : items) {
+            table.addCell(i.getItemName());
+            table.addCell(String.valueOf(i.getUnitPrice()));
+            table.addCell(String.valueOf(i.getQuantity()));
+            table.addCell(String.valueOf(i.getTotal()));
+        }
+
+        return table;
+    }
+"
+com.rafsan.inventory.pdf.PrintInvoice.addEmptyLine,PrintInvoice.java,"void addEmptyLine(Paragraph paragraph, int number) {
+        for (int i = 0; i < number; i++) {
+            paragraph.add(new Paragraph("" ""));
+        }
+    }
+"
+com.rafsan.inventory.controller.category.EditController.initialize,EditController.java,"void initialize(URL location, ResourceBundle resources) {
+
+        categoryModel = new CategoryModel();
+        resetValues();
+    }
+"
+com.rafsan.inventory.controller.category.EditController.setCategory,EditController.java,"void setCategory(Category category, long selectedCategoryId) {
+        this.category = category;
+        this.selectedCategoryId = selectedCategoryId;
+        setData();
+    }
+"
+com.rafsan.inventory.controller.category.EditController.handleSave,EditController.java,"void handleSave(ActionEvent event) {
+
+        if (validateInput()) {
+
+            Category editedCategory = new Category(
+                    category.getId(),
+                    typeField.getText(),
+                    descriptionArea.getText()
+            );
+
+            categoryModel.updateCategory(editedCategory);
+            CATEGORYLIST.set((int) selectedCategoryId, editedCategory);
+
+            ((Stage) saveButton.getScene().getWindow()).close();
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(""Successful"");
+            alert.setHeaderText(""Category Updated!"");
+            alert.setContentText(""Category is updated successfully"");
+            alert.showAndWait();
+        }
+    }
+"
+com.rafsan.inventory.controller.category.EditController.setData,EditController.java,"void setData() {
+        typeField.setText(category.getType());
+        descriptionArea.setText(category.getDescription());
+    }
+"
+com.rafsan.inventory.controller.category.EditController.resetValues,EditController.java,"void resetValues() {
+        typeField.setText("""");
+        descriptionArea.setText("""");
+    }
+"
+com.rafsan.inventory.controller.category.EditController.handleCancel,EditController.java,"void handleCancel(ActionEvent event) {
+        resetValues();
+    }
+"
+com.rafsan.inventory.controller.category.EditController.validateInput,EditController.java,"boolean validateInput() {
+
+        String errorMessage = """";
+
+        if (typeField.getText() == null || typeField.getText().length() == 0) {
+            errorMessage += ""No valid name!\n"";
+        }
+
+        if (descriptionArea.getText() == null || descriptionArea.getText().length() == 0) {
+            errorMessage += ""No email description!\n"";
+        }
+
+        if (errorMessage.length() == 0) {
+            return true;
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle(""Invalid Fields"");
+            alert.setHeaderText(""Please correct invalid fields"");
+            alert.setContentText(errorMessage);
+            alert.showAndWait();
+
+            return false;
+        }
+    }
+"
+com.rafsan.inventory.controller.category.EditController.closeAction,EditController.java,"void closeAction(ActionEvent event) {
+        ((Node) (event.getSource())).getScene().getWindow().hide();
+    }
+"
+com.rafsan.inventory.controller.category.CategoryController.initialize,CategoryController.java,"void initialize(URL location, ResourceBundle resources) {
+        model = new CategoryModel();
+
+        drawerAction();
+        loadData();
+
+        idColumn.setCellValueFactory(new PropertyValueFactory<>(""id""));
+        typeColumn.setCellValueFactory(new PropertyValueFactory<>(""type""));
+        descriptionColumn.setCellValueFactory(new PropertyValueFactory<>(""description""));
+
+        categoryTable.setItems(CATEGORYLIST);
+
+        filterData();
+
+        editButton
+                .disableProperty()
+                .bind(Bindings.isEmpty(categoryTable.getSelectionModel().getSelectedItems()));
+        deleteButton
+                .disableProperty()
+                .bind(Bindings.isEmpty(categoryTable.getSelectionModel().getSelectedItems()));
+    }
+"
+com.rafsan.inventory.controller.category.CategoryController.filterData,CategoryController.java,"void filterData() {
+        FilteredList<Category> searchedData = new FilteredList<>(CATEGORYLIST, e -> true);
+        searchField.setOnKeyReleased(e -> {
+            searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+                searchedData.setPredicate(category -> {
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true;
+                    }
+                    String lowerCaseFilter = newValue.toLowerCase();
+                    if (category.getType().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    } else if (category.getDescription().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    }
+                    return false;
+                });
+            });
+
+            SortedList<Category> sortedData = new SortedList<>(searchedData);
+            sortedData.comparatorProperty().bind(categoryTable.comparatorProperty());
+            categoryTable.setItems(sortedData);
+        });
+    }
+"
+com.rafsan.inventory.controller.category.CategoryController.loadData,CategoryController.java,"void loadData() {
+
+        if (!CATEGORYLIST.isEmpty()) {
+            CATEGORYLIST.clear();
+        }
+        CATEGORYLIST.addAll(model.getCategories());
+    }
+"
+com.rafsan.inventory.controller.category.CategoryController.drawerAction,CategoryController.java,"void drawerAction() {
+
+        TranslateTransition openNav = new TranslateTransition(new Duration(350), drawer);
+        openNav.setToX(0);
+        TranslateTransition closeNav = new TranslateTransition(new Duration(350), drawer);
+        menu.setOnAction((ActionEvent evt) -> {
+            if (drawer.getTranslateX() != 0) {
+                openNav.play();
+                menu.getStyleClass().remove(""hamburger-button"");
+                menu.getStyleClass().add(""open-menu"");
+            } else {
+                closeNav.setToX(-(drawer.getWidth()));
+                closeNav.play();
+                menu.getStyleClass().remove(""open-menu"");
+                menu.getStyleClass().add(""hamburger-button"");
+            }
+        });
+    }
+"
+com.rafsan.inventory.controller.category.CategoryController.adminAction,CategoryController.java,"void adminAction(ActionEvent event) throws Exception {
+
+        windows(""/fxml/Admin.fxml"", ""Admin"", event);
+    }
+"
+com.rafsan.inventory.controller.category.CategoryController.productAction,CategoryController.java,"void productAction(ActionEvent event) throws Exception {
+
+        windows(""/fxml/Product.fxml"", ""Product"", event);
+    }
+"
+com.rafsan.inventory.controller.category.CategoryController.purchaseAction,CategoryController.java,"void purchaseAction(ActionEvent event) throws Exception {
+
+        windows(""/fxml/Purchase.fxml"", ""Purchase"", event);
+    }
+"
+com.rafsan.inventory.controller.category.CategoryController.salesAction,CategoryController.java,"void salesAction(ActionEvent event) throws Exception {
+
+        windows(""/fxml/Sales.fxml"", ""Sales"", event);
+    }
+"
+com.rafsan.inventory.controller.category.CategoryController.supplierAction,CategoryController.java,"void supplierAction(ActionEvent event) throws Exception {
+        windows(""/fxml/Supplier.fxml"", ""Supplier"", event);
+    }
+"
+com.rafsan.inventory.controller.category.CategoryController.reportAction,CategoryController.java,"void reportAction(ActionEvent event) throws Exception {
+        windows(""/fxml/Report.fxml"", ""Report"", event);
+    }
+"
+com.rafsan.inventory.controller.category.CategoryController.staffAction,CategoryController.java,"void staffAction(ActionEvent event) throws Exception {
+        windows(""/fxml/Employee.fxml"", ""Employee"", event);
+    }
+"
+com.rafsan.inventory.controller.category.CategoryController.logoutAction,CategoryController.java,"void logoutAction(ActionEvent event) throws Exception {
+        ((Node) (event.getSource())).getScene().getWindow().hide();
+        Parent root = FXMLLoader.load(getClass().getResource(""/fxml/Login.fxml""));
+        Stage stage = new Stage();
+        root.setOnMousePressed((MouseEvent e) -> {
+            xOffset = e.getSceneX();
+            yOffset = e.getSceneY();
+        });
+        root.setOnMouseDragged((MouseEvent e) -> {
+            stage.setX(e.getScreenX() - xOffset);
+            stage.setY(e.getScreenY() - yOffset);
+        });
+        Scene scene = new Scene(root);
+        stage.setTitle(""Inventory:: Version 1.0"");
+        stage.getIcons().add(new Image(""/images/logo.png""));
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setScene(scene);
+        stage.show();
+    }
+"
+com.rafsan.inventory.controller.category.CategoryController.windows,CategoryController.java,"void windows(String path, String title, ActionEvent event) throws Exception {
+
+        double width = ((Node) event.getSource()).getScene().getWidth();
+        double height = ((Node) event.getSource()).getScene().getHeight();
+
+        Parent root = FXMLLoader.load(getClass().getResource(path));
+        Scene scene = new Scene(root, width, height);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setTitle(title);
+        stage.getIcons().add(new Image(""/images/logo.png""));
+        stage.setScene(scene);
+        stage.show();
+    }
+"
+com.rafsan.inventory.controller.category.CategoryController.addAction,CategoryController.java,"void addAction(ActionEvent event) throws Exception {
+
+        Parent root = FXMLLoader.load(getClass().getResource(""/fxml/category/Add.fxml""));
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        root.setOnMousePressed((MouseEvent e) -> {
+            xOffset = e.getSceneX();
+            yOffset = e.getSceneY();
+        });
+        root.setOnMouseDragged((MouseEvent e) -> {
+            stage.setX(e.getScreenX() - xOffset);
+            stage.setY(e.getScreenY() - yOffset);
+        });
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle(""New Category"");
+        stage.getIcons().add(new Image(""/images/logo.png""));
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setScene(scene);
+        stage.show();
+    }
+"
+com.rafsan.inventory.controller.category.CategoryController.editAction,CategoryController.java,"void editAction(ActionEvent event) throws Exception {
+
+        Category selectedCategory = categoryTable.getSelectionModel().getSelectedItem();
+        int selectedCategoryId = categoryTable.getSelectionModel().getSelectedIndex();
+        FXMLLoader loader = new FXMLLoader((getClass().getResource(""/fxml/category/Edit.fxml"")));
+        EditController controller = new EditController();
+        loader.setController(controller);
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        root.setOnMousePressed((MouseEvent e) -> {
+            xOffset = e.getSceneX();
+            yOffset = e.getSceneY();
+        });
+        root.setOnMouseDragged((MouseEvent e) -> {
+            stage.setX(e.getScreenX() - xOffset);
+            stage.setY(e.getScreenY() - yOffset);
+        });
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle(""Edit Category"");
+        stage.getIcons().add(new Image(""/images/logo.png""));
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setScene(scene);
+        stage.show();
+        controller.setCategory(selectedCategory, selectedCategoryId);
+        categoryTable.getSelectionModel().clearSelection();
+    }
+"
+com.rafsan.inventory.controller.category.CategoryController.deleteAction,CategoryController.java,"void deleteAction(ActionEvent event) {
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(""Delete"");
+        alert.setHeaderText(""Delete Product"");
+        alert.setContentText(""Are you sure?"");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            Category selectedCategory = categoryTable.getSelectionModel().getSelectedItem();
+
+            model.deleteCategory(selectedCategory);
+            CATEGORYLIST.remove(selectedCategory);
+        }
+
+        categoryTable.getSelectionModel().clearSelection();
+    }
+"
+com.rafsan.inventory.controller.category.AddController.initialize,AddController.java,"void initialize(URL location, ResourceBundle resources) {
+        categoryModel = new CategoryModel();
+    }
+"
+com.rafsan.inventory.controller.category.AddController.handleCancel,AddController.java,"void handleCancel(ActionEvent event) {
+        typeField.setText("""");
+        descriptionArea.setText("""");
+    }
+"
+com.rafsan.inventory.controller.category.AddController.handleSave,AddController.java,"void handleSave(ActionEvent event) {
+
+        if (validateInput()) {
+
+            Category category = new Category(
+                    typeField.getText(),
+                    descriptionArea.getText()
+            );
+
+            categoryModel.saveCategory(category);
+            CATEGORYLIST.clear();
+            CATEGORYLIST.addAll(categoryModel.getCategories());
+
+            ((Stage) saveButton.getScene().getWindow()).close();
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(""Successful"");
+            alert.setHeaderText(""Category Created!"");
+            alert.setContentText(""Category is created successfully"");
+            alert.showAndWait();
+        }
+    }
+"
+com.rafsan.inventory.controller.category.AddController.validateInput,AddController.java,"boolean validateInput() {
+
+        String errorMessage = """";
+
+        if (typeField.getText() == null || typeField.getText().length() == 0) {
+            errorMessage += ""No valid name!\n"";
+        }
+
+        if (descriptionArea.getText() == null || descriptionArea.getText().length() == 0) {
+            errorMessage += ""No email description!\n"";
+        }
+
+        if (errorMessage.length() == 0) {
+            return true;
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle(""Invalid Fields"");
+            alert.setHeaderText(""Please correct invalid fields"");
+            alert.setContentText(errorMessage);
+            alert.showAndWait();
+
+            return false;
+        }
+    }
+"
+com.rafsan.inventory.controller.category.AddController.closeAction,AddController.java,"void closeAction(ActionEvent event) {
+        ((Node) (event.getSource())).getScene().getWindow().hide();
+    }
+"
+com.rafsan.inventory.controller.sales.SalesController.initialize,SalesController.java,"void initialize(URL location, ResourceBundle resources) {
+        model = new SalesModel();
+        
+        drawerAction();
+        loadData();
+
+        idColumn.setCellValueFactory(new PropertyValueFactory<>(""id""));
+
+        productColumn.setCellValueFactory((TableColumn.CellDataFeatures<Sale, String> p) -> 
+                new SimpleStringProperty(p.getValue().getProduct().getProductName()));
+        
+        quantityColumn.setCellValueFactory(new PropertyValueFactory<>(""quantity""));
+        priceColumn.setCellValueFactory(new PropertyValueFactory<>(""price""));
+        totalColumn.setCellValueFactory(new PropertyValueFactory<>(""total""));
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>(""date""));
+        salesTable.setItems(SALELIST);
+        
+        filterData();
+        
+        deleteButton
+                .disableProperty()
+                .bind(Bindings.isEmpty(salesTable.getSelectionModel().getSelectedItems()));
+    }
+"
+com.rafsan.inventory.controller.sales.SalesController.filterData,SalesController.java,"void filterData() {
+        FilteredList<Sale> searchedData = new FilteredList<>(SALELIST, e -> true);
+        searchField.setOnKeyReleased(e -> {
+            searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+                searchedData.setPredicate(sale -> {
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true;
+                    }
+                    String lowerCaseFilter = newValue.toLowerCase();
+                    if (sale.getProduct().getProductName().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    } else if (sale.getProduct().getCategory().getType().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    }
+                    
+                    return false;
+                });
+            });
+
+            SortedList<Sale> sortedData = new SortedList<>(searchedData);
+            sortedData.comparatorProperty().bind(salesTable.comparatorProperty());
+            salesTable.setItems(sortedData);
+        });
+    }
+"
+com.rafsan.inventory.controller.sales.SalesController.loadData,SalesController.java,"void loadData(){
+    
+        if (!SALELIST.isEmpty()) {
+            SALELIST.clear();
+        }
+        SALELIST.addAll(model.getSales());
+    }
+"
+com.rafsan.inventory.controller.sales.SalesController.drawerAction,SalesController.java,"void drawerAction() {
+
+        TranslateTransition openNav = new TranslateTransition(new Duration(350), drawer);
+        openNav.setToX(0);
+        TranslateTransition closeNav = new TranslateTransition(new Duration(350), drawer);
+        menu.setOnAction((ActionEvent evt) -> {
+            if (drawer.getTranslateX() != 0) {
+                openNav.play();
+                menu.getStyleClass().remove(""hamburger-button"");
+                menu.getStyleClass().add(""open-menu"");
+            } else {
+                closeNav.setToX(-(drawer.getWidth()));
+                closeNav.play();
+                menu.getStyleClass().remove(""open-menu"");
+                menu.getStyleClass().add(""hamburger-button"");
+            }
+        });
+    }
+"
+com.rafsan.inventory.controller.sales.SalesController.adminAction,SalesController.java,"void adminAction(ActionEvent event) throws Exception {
+        windows(""/fxml/Admin.fxml"", ""Admin"", event);
+    }
+"
+com.rafsan.inventory.controller.sales.SalesController.productAction,SalesController.java,"void productAction(ActionEvent event) throws Exception {
+
+        windows(""/fxml/Product.fxml"", ""Product"", event);
+    }
+"
+com.rafsan.inventory.controller.sales.SalesController.categoryAction,SalesController.java,"void categoryAction(ActionEvent event) throws Exception {
+
+        windows(""/fxml/Category.fxml"", ""Category"", event);
+    }
+"
+com.rafsan.inventory.controller.sales.SalesController.purchaseAction,SalesController.java,"void purchaseAction(ActionEvent event) throws Exception {
+
+        windows(""/fxml/Purchase.fxml"", ""Purchase"", event);
+    }
+"
+com.rafsan.inventory.controller.sales.SalesController.reportAction,SalesController.java,"void reportAction(ActionEvent event) throws Exception {
+        windows(""/fxml/Report.fxml"", ""Report"", event);
+    }
+"
+com.rafsan.inventory.controller.sales.SalesController.supplierAction,SalesController.java,"void supplierAction(ActionEvent event) throws Exception {
+        windows(""/fxml/Supplier.fxml"", ""Supplier"", event);
+    }
+"
+com.rafsan.inventory.controller.sales.SalesController.staffAction,SalesController.java,"void staffAction(ActionEvent event) throws Exception {
+        windows(""/fxml/Employee.fxml"", ""Employee"", event);
+    }
+"
+com.rafsan.inventory.controller.sales.SalesController.logoutAction,SalesController.java,"void logoutAction(ActionEvent event) throws Exception {
+        ((Node) (event.getSource())).getScene().getWindow().hide();
+        Parent root = FXMLLoader.load(getClass().getResource(""/fxml/Login.fxml""));
+        Stage stage = new Stage();
+        root.setOnMousePressed((MouseEvent e) -> {
+            xOffset = e.getSceneX();
+            yOffset = e.getSceneY();
+        });
+        root.setOnMouseDragged((MouseEvent e) -> {
+            stage.setX(e.getScreenX() - xOffset);
+            stage.setY(e.getScreenY() - yOffset);
+        });
+        Scene scene = new Scene(root);
+        stage.setTitle(""Inventory:: Version 1.0"");
+        stage.getIcons().add(new Image(""/images/logo.png""));
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setScene(scene);
+        stage.show();
+
+    }
+"
+com.rafsan.inventory.controller.sales.SalesController.windows,SalesController.java,"void windows(String path, String title, ActionEvent event) throws Exception {
+
+        double width = ((Node) event.getSource()).getScene().getWidth();
+        double height = ((Node) event.getSource()).getScene().getHeight();
+
+        Parent root = FXMLLoader.load(getClass().getResource(path));
+        Scene scene = new Scene(root, width, height);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setTitle(title);
+        stage.getIcons().add(new Image(""/images/logo.png""));
+        stage.setScene(scene);
+        stage.show();
+    }
+"
+com.rafsan.inventory.controller.admin.AdminController.initialize,AdminController.java,"void initialize(URL location, ResourceBundle resources) {
+
+        productModel = new ProductModel();
+        invoiceModel = new InvoiceModel();
+
+        drawerAction();
+        loadInvoiceChart();
+        loadProductsChart();
+        loadStockChart();
+    }
+"
+com.rafsan.inventory.controller.admin.AdminController.drawerAction,AdminController.java,"void drawerAction() {
+
+        TranslateTransition openNav = new TranslateTransition(new Duration(350), drawer);
+        openNav.setToX(0);
+        TranslateTransition closeNav = new TranslateTransition(new Duration(350), drawer);
+        menu.setOnAction((ActionEvent evt) -> {
+            if (drawer.getTranslateX() != 0) {
+                openNav.play();
+                menu.getStyleClass().remove(""hamburger-button"");
+                menu.getStyleClass().add(""open-menu"");
+            } else {
+                closeNav.setToX(-(drawer.getWidth()));
+                closeNav.play();
+                menu.getStyleClass().remove(""open-menu"");
+                menu.getStyleClass().add(""hamburger-button"");
+            }
+        });
+    }
+"
+com.rafsan.inventory.controller.admin.AdminController.loadInvoiceChart,AdminController.java,"void loadInvoiceChart() {
+
+        String[] months = DateFormatSymbols.getInstance(Locale.ENGLISH).getMonths();
+        ObservableList lists = FXCollections.observableArrayList(months);
+        XYChart.Series series = new XYChart.Series();
+
+        for (Invoice i : invoiceModel.getInvoices()) {
+            String month = convertDate(i.getDate());
+            series.getData().add(new XYChart.Data(month, i.getPayable()));
+        }
+
+        series.setName(""Sales"");
+        ixAxis.setCategories(lists);
+        invoiceChart.getData().add(series);
+    }
+"
+com.rafsan.inventory.controller.admin.AdminController.loadProductsChart,AdminController.java,"void loadProductsChart() {
+
+        ObservableList lists = FXCollections.observableArrayList();
+        XYChart.Series<String, Double> series = new XYChart.Series<>();
+
+        for (Product p : productModel.getProducts()) {
+            series.getData().add(new XYChart.Data(p.getProductName(), p.getQuantity()));
+            lists.add(p.getProductName());
+        }
+
+        series.setName(""Products"");
+        pxAxis.setCategories(lists);
+        productsChart.getData().add(series);
+    }
+"
+com.rafsan.inventory.controller.admin.AdminController.convertDate,AdminController.java,"String convertDate(String date) {
+
+        int d = Integer.parseInt(date.substring(5, 7));
+        return new DateFormatSymbols().getMonths()[d - 1];
+    }
+"
+com.rafsan.inventory.controller.admin.AdminController.loadStockChart,AdminController.java,"void loadStockChart(){
+    
+        ObservableList<PieChart.Data> lists = FXCollections.observableArrayList();
+        
+        for(Product p : productModel.getProducts()){
+        
+            lists.add(new PieChart.Data(p.getProductName(), p.getQuantity()));
+        }
+        
+        stockChart.getData().addAll(lists);
+    }
+"
+com.rafsan.inventory.controller.admin.AdminController.productAction,AdminController.java,"void productAction(ActionEvent event) throws Exception {
+
+        windows(""/fxml/Product.fxml"", ""Product"", event);
+    }
+"
+com.rafsan.inventory.controller.admin.AdminController.categoryAction,AdminController.java,"void categoryAction(ActionEvent event) throws Exception {
+
+        windows(""/fxml/Category.fxml"", ""Category"", event);
+    }
+"
+com.rafsan.inventory.controller.admin.AdminController.purchaseAction,AdminController.java,"void purchaseAction(ActionEvent event) throws Exception {
+
+        windows(""/fxml/Purchase.fxml"", ""Purchase"", event);
+    }
+"
+com.rafsan.inventory.controller.admin.AdminController.salesAction,AdminController.java,"void salesAction(ActionEvent event) throws Exception {
+
+        windows(""/fxml/Sales.fxml"", ""Sales"", event);
+    }
+"
+com.rafsan.inventory.controller.admin.AdminController.supplierAction,AdminController.java,"void supplierAction(ActionEvent event) throws Exception {
+        windows(""/fxml/Supplier.fxml"", ""Supplier"", event);
+    }
+"
+com.rafsan.inventory.controller.admin.AdminController.reportAction,AdminController.java,"void reportAction(ActionEvent event) throws Exception {
+        windows(""/fxml/Report.fxml"", ""Report"", event);
+    }
+"
+com.rafsan.inventory.controller.admin.AdminController.staffAction,AdminController.java,"void staffAction(ActionEvent event) throws Exception {
+        windows(""/fxml/Employee.fxml"", ""Employee"", event);
+    }
+"
+com.rafsan.inventory.controller.admin.AdminController.logoutAction,AdminController.java,"void logoutAction(ActionEvent event) throws Exception {
+        ((Node) (event.getSource())).getScene().getWindow().hide();
+        Parent root = FXMLLoader.load(getClass().getResource(""/fxml/Login.fxml""));
+        Stage stage = new Stage();
+        root.setOnMousePressed((MouseEvent e) -> {
+            xOffset = e.getSceneX();
+            yOffset = e.getSceneY();
+        });
+        root.setOnMouseDragged((MouseEvent e) -> {
+            stage.setX(e.getScreenX() - xOffset);
+            stage.setY(e.getScreenY() - yOffset);
+        });
+        Scene scene = new Scene(root);
+        stage.setTitle(""Inventory:: Version 1.0"");
+        stage.getIcons().add(new Image(""/images/logo.png""));
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setScene(scene);
+        stage.show();
+    }
+"
+com.rafsan.inventory.controller.admin.AdminController.windows,AdminController.java,"void windows(String path, String title, ActionEvent event) throws Exception {
+
+        double width = ((Node) event.getSource()).getScene().getWidth();
+        double height = ((Node) event.getSource()).getScene().getHeight();
+
+        Parent root = FXMLLoader.load(getClass().getResource(path));
+        Scene scene = new Scene(root, width, height);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setTitle(title);
+        stage.getIcons().add(new Image(""/images/logo.png""));
+        stage.setScene(scene);
+        stage.show();
+    }
+"
+com.rafsan.inventory.controller.product.ProductController.initialize,ProductController.java,"void initialize(URL location, ResourceBundle resources) {
+        model = new ProductModel();
+        salesModel = new SalesModel();
+        drawerAction();
+        loadData();
+
+        idColumn.setCellValueFactory(new PropertyValueFactory<>(""id""));
+        categoryColumn.setCellValueFactory((TableColumn.CellDataFeatures<Product, String> p)
+                -> new SimpleStringProperty(p.getValue().getCategory().getType()));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>(""productName""));
+        supplierColumn.setCellValueFactory((TableColumn.CellDataFeatures<Product, String> p)
+                -> new SimpleStringProperty(p.getValue().getSupplier().getName()));
+        priceColumn.setCellValueFactory(new PropertyValueFactory<>(""price""));
+        quantityColumn.setCellValueFactory(new PropertyValueFactory<>(""quantity""));
+        descriptionColumn.setCellValueFactory(new PropertyValueFactory<>(""description""));
+        productTable.setItems(PRODUCTLIST);
+
+        filterData();
+
+        productTable.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> loadProductSalesChart(newValue));
+
+        editButton
+                .disableProperty()
+                .bind(Bindings.isEmpty(productTable.getSelectionModel().getSelectedItems()));
+        deleteButton
+                .disableProperty()
+                .bind(Bindings.isEmpty(productTable.getSelectionModel().getSelectedItems()));
+    }
+"
+com.rafsan.inventory.controller.product.ProductController.filterData,ProductController.java,"void filterData() {
+
+        FilteredList<Product> searchedData = new FilteredList<>(PRODUCTLIST, e -> true);
+        searchField.setOnKeyReleased(e -> {
+            searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+                searchedData.setPredicate(product -> {
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true;
+                    }
+                    String lowerCaseFilter = newValue.toLowerCase();
+                    if (product.getProductName().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    } else if (product.getDescription().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    }
+                    return false;
+                });
+            });
+
+            SortedList<Product> sortedData = new SortedList<>(searchedData);
+            sortedData.comparatorProperty().bind(productTable.comparatorProperty());
+            productTable.setItems(sortedData);
+        });
+    }
+"
+com.rafsan.inventory.controller.product.ProductController.drawerAction,ProductController.java,"void drawerAction() {
+
+        TranslateTransition openNav = new TranslateTransition(new Duration(350), drawer);
+        openNav.setToX(0);
+        TranslateTransition closeNav = new TranslateTransition(new Duration(350), drawer);
+        menu.setOnAction((ActionEvent evt) -> {
+            if (drawer.getTranslateX() != 0) {
+                openNav.play();
+                menu.getStyleClass().remove(""hamburger-button"");
+                menu.getStyleClass().add(""open-menu"");
+            } else {
+                closeNav.setToX(-(drawer.getWidth()));
+                closeNav.play();
+                menu.getStyleClass().remove(""open-menu"");
+                menu.getStyleClass().add(""hamburger-button"");
+            }
+        });
+    }
+"
+com.rafsan.inventory.controller.product.ProductController.loadData,ProductController.java,"void loadData() {
+
+        if (!PRODUCTLIST.isEmpty()) {
+            PRODUCTLIST.clear();
+        }
+        PRODUCTLIST.addAll(model.getProducts());
+    }
+"
+com.rafsan.inventory.controller.product.ProductController.loadProductSalesChart,ProductController.java,"void loadProductSalesChart(Product p) {
+
+        if (p != null) {
+
+            String[] months = DateFormatSymbols.getInstance(Locale.ENGLISH).getMonths();
+            ObservableList lists = FXCollections.observableArrayList(months);
+            pxAxis.setCategories(lists);
+
+            productChart.getData().clear();
+
+            List<Sale> sales = salesModel.getSaleByProductId(p.getId());
+
+            XYChart.Series series = new XYChart.Series();
+            series.setName(p.getProductName());
+
+            for (Sale s : sales) {
+
+                String month = convertDate(s.getDate());
+                series.getData().add(new XYChart.Data(month, s.getTotal()));
+            }
+
+            productChart.getData().addAll(series);
+        }
+
+    }
+"
+com.rafsan.inventory.controller.product.ProductController.convertDate,ProductController.java,"String convertDate(String date) {
+
+        int d = Integer.parseInt(date.substring(5, 7));
+
+        return new DateFormatSymbols().getMonths()[d - 1];
+    }
+"
+com.rafsan.inventory.controller.product.ProductController.adminAction,ProductController.java,"void adminAction(ActionEvent event) throws Exception {
+        windows(""/fxml/Admin.fxml"", ""Admin"", event);
+    }
+"
+com.rafsan.inventory.controller.product.ProductController.categoryAction,ProductController.java,"void categoryAction(ActionEvent event) throws Exception {
+
+        windows(""/fxml/Category.fxml"", ""Category"", event);
+    }
+"
+com.rafsan.inventory.controller.product.ProductController.purchaseAction,ProductController.java,"void purchaseAction(ActionEvent event) throws Exception {
+
+        windows(""/fxml/Purchase.fxml"", ""Purchase"", event);
+    }
+"
+com.rafsan.inventory.controller.product.ProductController.salesAction,ProductController.java,"void salesAction(ActionEvent event) throws Exception {
+
+        windows(""/fxml/Sales.fxml"", ""Sales"", event);
+    }
+"
+com.rafsan.inventory.controller.product.ProductController.reportAction,ProductController.java,"void reportAction(ActionEvent event) throws Exception {
+        windows(""/fxml/Report.fxml"", ""Report"", event);
+    }
+"
+com.rafsan.inventory.controller.product.ProductController.supplierAction,ProductController.java,"void supplierAction(ActionEvent event) throws Exception {
+        windows(""/fxml/Supplier.fxml"", ""Supplier"", event);
+    }
+"
+com.rafsan.inventory.controller.product.ProductController.staffAction,ProductController.java,"void staffAction(ActionEvent event) throws Exception {
+        windows(""/fxml/Employee.fxml"", ""Employee"", event);
+    }
+"
+com.rafsan.inventory.controller.product.ProductController.logoutAction,ProductController.java,"void logoutAction(ActionEvent event) throws Exception {
+        ((Node) (event.getSource())).getScene().getWindow().hide();
+        Parent root = FXMLLoader.load(getClass().getResource(""/fxml/Login.fxml""));
+        Stage stage = new Stage();
+        root.setOnMousePressed((MouseEvent e) -> {
+            xOffset = e.getSceneX();
+            yOffset = e.getSceneY();
+        });
+        root.setOnMouseDragged((MouseEvent e) -> {
+            stage.setX(e.getScreenX() - xOffset);
+            stage.setY(e.getScreenY() - yOffset);
+        });
+        Scene scene = new Scene(root);
+        stage.setTitle(""Inventory:: Version 1.0"");
+        stage.getIcons().add(new Image(""/images/logo.png""));
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setScene(scene);
+        stage.show();
+    }
+"
+com.rafsan.inventory.controller.product.ProductController.windows,ProductController.java,"void windows(String path, String title, ActionEvent event) throws Exception {
+
+        double width = ((Node) event.getSource()).getScene().getWidth();
+        double height = ((Node) event.getSource()).getScene().getHeight();
+
+        Parent root = FXMLLoader.load(getClass().getResource(path));
+        Scene scene = new Scene(root, width, height);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setTitle(title);
+        stage.getIcons().add(new Image(""/images/logo.png""));
+        stage.setScene(scene);
+        stage.show();
+    }
+"
+com.rafsan.inventory.controller.product.ProductController.addAction,ProductController.java,"void addAction(ActionEvent event) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource(""/fxml/product/Add.fxml""));
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        root.setOnMousePressed((MouseEvent e) -> {
+            xOffset = e.getSceneX();
+            yOffset = e.getSceneY();
+        });
+        root.setOnMouseDragged((MouseEvent e) -> {
+            stage.setX(e.getScreenX() - xOffset);
+            stage.setY(e.getScreenY() - yOffset);
+        });
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle(""New Product"");
+        stage.getIcons().add(new Image(""/images/logo.png""));
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setScene(scene);
+        stage.show();
+    }
+"
+com.rafsan.inventory.controller.product.ProductController.editAction,ProductController.java,"void editAction(ActionEvent event) throws Exception {
+
+        Product selectedProduct = productTable.getSelectionModel().getSelectedItem();
+        int selectedProductId = productTable.getSelectionModel().getSelectedIndex();
+        FXMLLoader loader = new FXMLLoader((getClass().getResource(""/fxml/product/Edit.fxml"")));
+        EditController controller = new EditController();
+        loader.setController(controller);
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle(""Edit Product"");
+        stage.getIcons().add(new Image(""/images/logo.png""));
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setScene(scene);
+        stage.show();
+        controller.setProduct(selectedProduct, selectedProductId);
+        productTable.getSelectionModel().clearSelection();
+    }
+"
+com.rafsan.inventory.controller.product.ProductController.deleteAction,ProductController.java,"void deleteAction(ActionEvent event) {
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(""Delete"");
+        alert.setHeaderText(""Delete Product"");
+        alert.setContentText(""Are you sure?"");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            Product selectedProduct = productTable.getSelectionModel().getSelectedItem();
+
+            model.deleteProduct(selectedProduct);
+            PRODUCTLIST.remove(selectedProduct);
+        }
+
+        productTable.getSelectionModel().clearSelection();
+    }
+"
+com.rafsan.inventory.controller.product.EditController.initialize,EditController.java,"void initialize(URL location, ResourceBundle resources) {
+        productModel = new ProductModel();
+        categoryModel = new CategoryModel();
+        supplierModel = new SupplierModel();
+        ObservableList<String> categoryList = FXCollections.observableArrayList(categoryModel.getTypes());
+        ObservableList<String> supplierList = FXCollections.observableArrayList(supplierModel.getNames());
+        categoryBox.setItems(categoryList);
+        supplierBox.setItems(supplierList);
+        resetValues();
+    }
+"
+com.rafsan.inventory.controller.product.EditController.setProduct,EditController.java,"void setProduct(Product product, long selectedProductId) {
+        this.product = product;
+        this.selectedProductId = selectedProductId;
+        setData();
+    }
+"
+com.rafsan.inventory.controller.product.EditController.setData,EditController.java,"void setData() {
+        nameField.setText(product.getProductName());
+        priceField.setText(String.valueOf(product.getPrice()));
+        quantityField.setText(String.valueOf(product.getQuantity()));
+        descriptionArea.setText(String.valueOf(product.getDescription()));
+        
+        categoryBox.getSelectionModel().select(((int) product.getCategory().getId()) - 1);
+        supplierBox.getSelectionModel().select(((int) product.getSupplier().getId()) - 1);
+    }
+"
+com.rafsan.inventory.controller.product.EditController.handleSave,EditController.java,"void handleSave(ActionEvent event) {
+
+        if (validateInput()) {
+            Category category = categoryModel.getCategory(categoryBox.getSelectionModel().getSelectedIndex() + 1);
+            Supplier supplier = supplierModel.getSupplier(supplierBox.getSelectionModel().getSelectedIndex() + 1);
+            Product editedProduct = new Product(
+                    product.getId(),
+                    nameField.getText(),
+                    Double.parseDouble(priceField.getText()),
+                    Double.parseDouble(quantityField.getText()),
+                    descriptionArea.getText(),
+                    category,
+                    supplier
+            );
+
+            productModel.updateProduct(editedProduct);
+            PRODUCTLIST.set((int) selectedProductId, editedProduct);
+
+            ((Stage) saveButton.getScene().getWindow()).close();
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(""Successful"");
+            alert.setHeaderText(""Product Updated!"");
+            alert.setContentText(""Product is updated successfully"");
+            alert.showAndWait();
+        }
+    }
+"
+com.rafsan.inventory.controller.product.EditController.resetValues,EditController.java,"void resetValues() {
+        nameField.setText("""");
+        priceField.setText("""");
+        quantityField.setText("""");
+        descriptionArea.setText("""");
+        categoryBox.valueProperty().setValue(null);
+        supplierBox.valueProperty().setValue(null);
+    }
+"
+com.rafsan.inventory.controller.product.EditController.handleCancel,EditController.java,"void handleCancel(ActionEvent event) {
+        resetValues();
+    }
+"
+com.rafsan.inventory.controller.product.EditController.validateInput,EditController.java,"boolean validateInput() {
+
+        String errorMessage = """";
+
+        if (nameField.getText() == null || nameField.getText().length() == 0) {
+            errorMessage += ""No valid name!\n"";
+        }
+
+        if (priceField.getText() == null || priceField.getText().length() == 0) {
+            errorMessage += ""No valid price!\n"";
+        }
+
+        if (quantityField.getText() == null || quantityField.getText().length() == 0) {
+            errorMessage += ""No valid quantity!\n"";
+        }
+
+        if (descriptionArea.getText() == null || descriptionArea.getText().length() == 0) {
+            errorMessage += ""No email description!\n"";
+        }
+
+        if (categoryBox.getSelectionModel().isEmpty()) {
+            errorMessage += ""Please select the category!\n"";
+        }
+
+        if (errorMessage.length() == 0) {
+            return true;
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle(""Invalid Fields"");
+            alert.setHeaderText(""Please correct invalid fields"");
+            alert.setContentText(errorMessage);
+            alert.showAndWait();
+
+            return false;
+        }
+    }
+"
+com.rafsan.inventory.controller.product.EditController.closeAction,EditController.java,"void closeAction(ActionEvent event) {
+        ((Node) (event.getSource())).getScene().getWindow().hide();
+    }
+"
+com.rafsan.inventory.controller.product.AddController.initialize,AddController.java,"void initialize(URL location, ResourceBundle resources) {
+        productModel = new ProductModel();
+        categoryModel = new CategoryModel();
+        supplierModel = new SupplierModel();
+        ObservableList<String> categoryList = FXCollections.observableArrayList(categoryModel.getTypes());
+        ObservableList<String> supplierList = FXCollections.observableArrayList(supplierModel.getNames());
+        categoryBox.setItems(categoryList);
+        supplierBox.setItems(supplierList);
+    }
+"
+com.rafsan.inventory.controller.product.AddController.handleSave,AddController.java,"void handleSave(ActionEvent event) {
+
+        if (validateInput()) {
+
+            Category category = categoryModel.getCategory(categoryBox.getSelectionModel().getSelectedIndex() + 1);
+            Supplier supplier = supplierModel.getSupplier(supplierBox.getSelectionModel().getSelectedIndex() + 1);
+            Product product = new Product(
+                    nameField.getText(),
+                    Double.parseDouble(priceField.getText()),
+                    Double.parseDouble(quantityField.getText()),
+                    descriptionArea.getText(),
+                    category,
+                    supplier
+            );
+
+            productModel.saveProduct(product);
+            PRODUCTLIST.clear();
+            PRODUCTLIST.addAll(productModel.getProducts());
+
+            ((Stage) saveButton.getScene().getWindow()).close();
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(""Successful"");
+            alert.setHeaderText(""Product is added"");
+            alert.setContentText(""Product is added successfully"");
+            alert.showAndWait();
+        }
+    }
+"
+com.rafsan.inventory.controller.product.AddController.handleCancel,AddController.java,"void handleCancel(ActionEvent event) {
+        nameField.setText("""");
+        priceField.setText("""");
+        quantityField.setText("""");
+        descriptionArea.setText("""");
+        categoryBox.valueProperty().setValue(null);
+    }
+"
+com.rafsan.inventory.controller.product.AddController.validateInput,AddController.java,"boolean validateInput() {
+
+        String errorMessage = """";
+
+        if (nameField.getText() == null || nameField.getText().length() == 0) {
+            errorMessage += ""No valid name!\n"";
+        }
+
+        if (priceField.getText() == null || priceField.getText().length() == 0) {
+            errorMessage += ""No valid price!\n"";
+        }
+
+        if (quantityField.getText() == null || quantityField.getText().length() == 0) {
+            errorMessage += ""No valid quantity!\n"";
+        }
+
+        if (descriptionArea.getText() == null || descriptionArea.getText().length() == 0) {
+            errorMessage += ""No email description!\n"";
+        }
+
+        if (categoryBox.getSelectionModel().isEmpty()) {
+            errorMessage += ""Please select the category!\n"";
+        }
+
+        if (errorMessage.length() == 0) {
+            return true;
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle(""Invalid Fields"");
+            alert.setHeaderText(""Please correct invalid fields"");
+            alert.setContentText(errorMessage);
+            alert.showAndWait();
+
+            return false;
+        }
+    }
+"
+com.rafsan.inventory.controller.product.AddController.closeAction,AddController.java,"void closeAction(ActionEvent event) {
+        ((Node) (event.getSource())).getScene().getWindow().hide();
+    }
+"
+com.rafsan.inventory.controller.pos.InvoiceController.initialize,InvoiceController.java,"void initialize(URL url, ResourceBundle rb) {
+        productModel = new ProductModel();
+        employeeModel = new EmployeeModel();
+        salesModel = new SalesModel();
+        invoiceModel = new InvoiceModel();
+        totalAmountField.setText(String.valueOf(netPrice));
+    }
+"
+com.rafsan.inventory.controller.pos.InvoiceController.setData,InvoiceController.java,"void setData(double netPrice, ObservableList<Item> items, Payment payment) {
+
+        this.netPrice = netPrice;
+        this.items = FXCollections.observableArrayList(items);
+        this.payment = payment;
+    }
+"
+com.rafsan.inventory.controller.pos.InvoiceController.confirmAction,InvoiceController.java,"void confirmAction(ActionEvent event) throws Exception {
+
+        if (validateInput()) {
+            double paid = Double.parseDouble(paidAmountField.getText().trim());
+            double retail = Math.abs(paid - netPrice);
+
+            String invoiceId = String.valueOf(new Timestamp(System.currentTimeMillis()).getTime());
+
+            Invoice invoice = new Invoice(
+                    invoiceId,
+                    employeeModel.getEmployee(2),
+                    payment.getSubTotal(),
+                    payment.getVat(),
+                    payment.getDiscount(),
+                    payment.getPayable(),
+                    paid,
+                    retail
+            );
+
+            invoiceModel.saveInvoice(invoice);
+
+            for (Item i : items) {
+
+                Product p = productModel.getProductByName(i.getItemName());
+                double quantity = p.getQuantity() - i.getQuantity();
+                p.setQuantity(quantity);
+                productModel.decreaseProduct(p);
+
+                Sale sale = new Sale(
+                        invoiceModel.getInvoice(invoiceId),
+                        productModel.getProductByName(i.getItemName()),
+                        i.getQuantity(),
+                        i.getUnitPrice(),
+                        i.getTotal()
+                );
+
+                salesModel.saveSale(sale);
+            }
+
+            FXMLLoader loader = new FXMLLoader((getClass().getResource(""/fxml/Confirm.fxml"")));
+            ConfirmController controller = new ConfirmController();
+            controller.setData(retail, items, invoiceId);
+            loader.setController(controller);
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            root.setOnMousePressed((MouseEvent e) -> {
+                xOffset = e.getSceneX();
+                yOffset = e.getSceneY();
+            });
+            root.setOnMouseDragged((MouseEvent e) -> {
+                stage.setX(e.getScreenX() - xOffset);
+                stage.setY(e.getScreenY() - yOffset);
+            });
+            stage.setTitle(""Confirm"");
+            stage.getIcons().add(new Image(""/images/logo.png""));
+            stage.setScene(scene);
+            stage.show();
+        }
+
+    }
+"
+com.rafsan.inventory.controller.pos.InvoiceController.validateInput,InvoiceController.java,"boolean validateInput() {
+
+        String errorMessage = """";
+
+        if (paidAmountField.getText() == null || paidAmountField.getText().length() == 0) {
+            errorMessage += ""Invalid Input!\n"";
+        } else if (Double.parseDouble(paidAmountField.getText()) < netPrice) {
+            errorMessage += ""Insufficient Input!\n"";
+        }
+
+        if (errorMessage.length() == 0) {
+            return true;
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(""Warning"");
+            alert.setHeaderText(""Please input the valid amount"");
+            alert.setContentText(errorMessage);
+            alert.showAndWait();
+            paidAmountField.setText("""");
+
+            return false;
+        }
+    }
+"
+com.rafsan.inventory.controller.pos.InvoiceController.closeAction,InvoiceController.java,"void closeAction(ActionEvent event) {
+        ((Node) (event.getSource())).getScene().getWindow().hide();
+    }
+"
+com.rafsan.inventory.controller.pos.PosController.initialize,PosController.java,"void initialize(URL location, ResourceBundle resources) {
+        ITEMLIST = FXCollections.observableArrayList();
+        productModel = new ProductModel();
+
+        loadData();
+
+        productColumn.setCellValueFactory(new PropertyValueFactory<>(""productName""));
+        productTableView.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> showDetails(newValue));
+        productTableView.setItems(PRODUCTLIST);
+
+        filterData();
+
+        itemColumn.setCellValueFactory(new PropertyValueFactory<>(""itemName""));
+        priceColumn.setCellValueFactory(new PropertyValueFactory<>(""unitPrice""));
+        quantityColumn.setCellValueFactory(new PropertyValueFactory<>(""quantity""));
+        totalColumn.setCellValueFactory(new PropertyValueFactory<>(""total""));
+        listTableView.setItems(ITEMLIST);
+
+        addButton
+                .disableProperty()
+                .bind(Bindings.isEmpty(productTableView.getSelectionModel().getSelectedItems()));
+        removeButton
+                .disableProperty()
+                .bind(Bindings.isEmpty(listTableView.getSelectionModel().getSelectedItems()));
+    }
+"
+com.rafsan.inventory.controller.pos.PosController.filterData,PosController.java,"void filterData() {
+        FilteredList<Product> searchedData = new FilteredList<>(PRODUCTLIST, e -> true);
+
+        searchField.setOnKeyReleased(e -> {
+            searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+                searchedData.setPredicate(product -> {
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true;
+                    }
+                    String lowerCaseFilter = newValue.toLowerCase();
+                    if (product.getProductName().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    } else if (product.getDescription().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    }
+                    return false;
+                });
+            });
+
+            SortedList<Product> sortedData = new SortedList<>(searchedData);
+            sortedData.comparatorProperty().bind(productTableView.comparatorProperty());
+            productTableView.setItems(sortedData);
+        });
+    }
+"
+com.rafsan.inventory.controller.pos.PosController.loadData,PosController.java,"void loadData() {
+        if (!PRODUCTLIST.isEmpty()) {
+            PRODUCTLIST.clear();
+        }
+
+        PRODUCTLIST.addAll(productModel.getProducts());
+    }
+"
+com.rafsan.inventory.controller.pos.PosController.showDetails,PosController.java,"void showDetails(Product product) {
+        if (product != null) {
+            quantityField.setDisable(false);
+            productField.setText(product.getProductName());
+            priceField.setText(String.valueOf(product.getPrice()));
+
+            double quantity = product.getQuantity();
+
+            if (quantity > 0) {
+                quantityField.setEditable(true);
+                quantityField.setStyle(null);
+            } else {
+                quantityField.setEditable(false);
+                quantityField.setStyle(""-fx-background-color: red;"");
+            }
+            quantityLabel.setText(""Stock: "" + String.valueOf(quantity));
+            descriptionArea.setText(product.getDescription());
+        } else {
+            productField.setText("""");
+            priceField.setText("""");
+            quantityLabel.setText("""");
+            descriptionArea.setText("""");
+        }
+    }
+"
+com.rafsan.inventory.controller.pos.PosController.resetProductTableSelection,PosController.java,"void resetProductTableSelection() {
+        productTableView.getSelectionModel().clearSelection();
+    }
+"
+com.rafsan.inventory.controller.pos.PosController.resetItemTable,PosController.java,"void resetItemTable() {
+        ITEMLIST.clear();
+    }
+"
+com.rafsan.inventory.controller.pos.PosController.resetAdd,PosController.java,"void resetAdd() {
+        productField.setText("""");
+        priceField.setText("""");
+        quantityField.setText("""");
+        resetQuantityField();
+        quantityLabel.setText(""Available: "");
+        descriptionArea.setText("""");
+    }
+"
+com.rafsan.inventory.controller.pos.PosController.resetInvoice,PosController.java,"void resetInvoice() {
+        subTotalField.setText(""0.00"");
+        vatField.setText(""0.00"");
+        netPayableField.setText(""0.00"");
+    }
+"
+com.rafsan.inventory.controller.pos.PosController.resetQuantityField,PosController.java,"void resetQuantityField() {
+        quantityField.setDisable(true);
+    }
+"
+com.rafsan.inventory.controller.pos.PosController.resetPaymentButton,PosController.java,"void resetPaymentButton() {
+        paymentButton.setDisable(true);
+    }
+"
+com.rafsan.inventory.controller.pos.PosController.resetInterface,PosController.java,"void resetInterface() {
+        loadData();
+        resetPaymentButton();
+        resetProductTableSelection();
+        resetItemTable();
+        resetQuantityField();
+        resetAdd();
+        resetInvoice();
+    }
+"
+com.rafsan.inventory.controller.pos.PosController.resetAction,PosController.java,"void resetAction(ActionEvent event) {
+        resetInterface();
+    }
+"
+com.rafsan.inventory.controller.pos.PosController.addAction,PosController.java,"void addAction(ActionEvent event) {
+
+        if (validateInput()) {
+            String productName = productField.getText();
+            double unitPrice = Double.parseDouble(priceField.getText());
+            double quantity = Double.parseDouble(quantityField.getText());
+            double total = unitPrice * quantity;
+            ITEMLIST.add(new Item(productName, unitPrice, quantity, total));
+            calculation();
+
+            resetAdd();
+            productTableView.getSelectionModel().clearSelection();
+        }
+    }
+"
+com.rafsan.inventory.controller.pos.PosController.calculation,PosController.java,"void calculation() {
+
+        double subTotalPrice = 0.0;
+        subTotalPrice = listTableView.getItems().stream().map(
+                (item) -> item.getTotal()).reduce(subTotalPrice, (accumulator, _item) -> accumulator + _item);
+
+        if (subTotalPrice > 0) {
+            paymentButton.setDisable(false);
+            double vat = (double) subTotalPrice * 0.025;
+            double netPayablePrice = (double) (Math.abs((subTotalPrice + vat) - 5));
+
+            subTotalField.setText(String.valueOf(subTotalPrice));
+            vatField.setText(String.valueOf(vat));
+            netPayableField.setText(String.valueOf(netPayablePrice));
+        }
+    }
+"
+com.rafsan.inventory.controller.pos.PosController.paymentAction,PosController.java,"void paymentAction(ActionEvent event) throws Exception {
+
+        Payment payment = new Payment(
+                Double.parseDouble(subTotalField.getText().trim()),
+                Double.parseDouble(vatField.getText().trim()),
+                Double.parseDouble(discountField.getText().trim()),
+                Double.parseDouble(netPayableField.getText().trim())
+        );
+
+        ObservableList<Item> sold = listTableView.getItems();
+
+        FXMLLoader loader = new FXMLLoader((getClass().getResource(""/fxml/Invoice.fxml"")));
+        InvoiceController controller = new InvoiceController();
+        loader.setController(controller);
+        controller.setData(Double.parseDouble(netPayableField.getText().trim()), sold, payment);
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        root.setOnMousePressed((MouseEvent e) -> {
+            xOffset = e.getSceneX();
+            yOffset = e.getSceneY();
+        });
+        root.setOnMouseDragged((MouseEvent e) -> {
+            stage.setX(e.getScreenX() - xOffset);
+            stage.setY(e.getScreenY() - yOffset);
+        });
+        Scene scene = new Scene(root);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle(""Payment"");
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.getIcons().add(new Image(""/images/logo.png""));
+        stage.setScene(scene);
+        stage.showAndWait();
+
+        resetInterface();
+    }
+"
+com.rafsan.inventory.controller.pos.PosController.removeAction,PosController.java,"void removeAction(ActionEvent event) {
+
+        int index = listTableView.getSelectionModel().getSelectedIndex();
+
+        if (index > 0) {
+            listTableView.getItems().remove(index);
+            calculation();
+        } else if (index == 0) {
+            listTableView.getItems().remove(index);
+            resetInvoice();
+        }
+    }
+"
+com.rafsan.inventory.controller.pos.PosController.validateInput,PosController.java,"boolean validateInput() {
+
+        String errorMessage = """";
+
+        if (quantityField.getText() == null || quantityField.getText().length() == 0) {
+            errorMessage += ""Quantity not supplied!\n"";
+        } else {
+            double quantity = Double.parseDouble(quantityField.getText());
+            String available = quantityLabel.getText();
+            double availableQuantity = Double.parseDouble(available.substring(7));
+
+            if (quantity > availableQuantity) {
+                errorMessage += ""Out of Stock!\n"";
+            }
+        }
+
+        if (errorMessage.length() == 0) {
+            return true;
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(""Warning"");
+            alert.setHeaderText(""Please input the valid number of products"");
+            alert.setContentText(errorMessage);
+            alert.showAndWait();
+            quantityField.setText("""");
+
+            return false;
+        }
+    }
+"
+com.rafsan.inventory.controller.pos.PosController.logoutAction,PosController.java,"void logoutAction(ActionEvent event) throws Exception {
+        ((Node) (event.getSource())).getScene().getWindow().hide();
+        Parent root = FXMLLoader.load(getClass().getResource(""/fxml/Login.fxml""));
+        Stage stage = new Stage();
+        root.setOnMousePressed((MouseEvent e) -> {
+            xOffset = e.getSceneX();
+            yOffset = e.getSceneY();
+        });
+        root.setOnMouseDragged((MouseEvent e) -> {
+            stage.setX(e.getScreenX() - xOffset);
+            stage.setY(e.getScreenY() - yOffset);
+        });
+
+        Scene scene = new Scene(root);
+        stage.setTitle(""Inventory:: Version 1.0"");
+        stage.getIcons().add(new Image(""/images/logo.png""));
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setScene(scene);
+        stage.show();
+    }
+"
+com.rafsan.inventory.controller.pos.ConfirmController.initialize,ConfirmController.java,"void initialize(URL url, ResourceBundle rb) {
+        retailLabel.setText(""Change: $"" + retail);
+
+        StringBuilder details = new StringBuilder(""Item Name\t\t"" + ""Cost\t\t"" + ""Quantity\t\t"" + ""Total\n"");
+
+        for (Item i : items) {
+            details.append(i.getItemName())
+                    .append(""\t\t\t"")
+                    .append(i.getUnitPrice())
+                    .append(""\t\t\t"")
+                    .append(i.getQuantity())
+                    .append(""\t\t\t"")
+                    .append(i.getTotal())
+                    .append(""\n"");
+        }
+
+        billingArea.setText(details.toString());
+    }
+"
+com.rafsan.inventory.controller.pos.ConfirmController.setData,ConfirmController.java,"void setData(double retail, ObservableList<Item> items, String barcode) {
+        this.retail = retail;
+        this.items = FXCollections.observableArrayList(items);
+        this.barcode = barcode;
+    }
+"
+com.rafsan.inventory.controller.pos.ConfirmController.doneAction,ConfirmController.java,"void doneAction(ActionEvent event) {
+        billingArea.setText("""");
+        PrintInvoice pi = new PrintInvoice(items, barcode);
+        pi.generateReport();
+        ((Node) (event.getSource())).getScene().getWindow().hide();
+    }
+"
+com.rafsan.inventory.controller.supplier.EditController.initialize,EditController.java,"void initialize(URL location, ResourceBundle resources) {
+        supplierModel = new SupplierModel();
+        resetValues();
+    }
+"
+com.rafsan.inventory.controller.supplier.EditController.resetValues,EditController.java,"void resetValues() {
+
+        supplierField.setText("""");
+        phoneField.setText("""");
+        addressArea.setText("""");
+    }
+"
+com.rafsan.inventory.controller.supplier.EditController.setSupplier,EditController.java,"void setSupplier(Supplier supplier, long selectedSupplierId){
+        this.supplier = supplier;
+        this.selectedSupplierId = selectedSupplierId;
+        setData();
+    }
+"
+com.rafsan.inventory.controller.supplier.EditController.setData,EditController.java,"void setData(){
+        supplierField.setText(supplier.getName());
+        phoneField.setText(supplier.getPhone());
+        addressArea.setText(supplier.getAddress());
+    }
+"
+com.rafsan.inventory.controller.supplier.EditController.handleCancel,EditController.java,"void handleCancel(ActionEvent event) {
+        resetValues();
+    }
+"
+com.rafsan.inventory.controller.supplier.EditController.handleSave,EditController.java,"void handleSave(ActionEvent event) {
+
+        if (validateInput()) {
+
+            Supplier editedSupplier = new Supplier(
+                    supplier.getId(),
+                    supplierField.getText(),
+                    phoneField.getText(),
+                    addressArea.getText()
+            );
+
+            supplierModel.updateSuplier(editedSupplier);
+            SUPPLIERLIST.set((int) selectedSupplierId, editedSupplier);
+
+            ((Stage) saveButton.getScene().getWindow()).close();
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(""Successful"");
+            alert.setHeaderText(""Supplier Updated!"");
+            alert.setContentText(""Supplier is updated successfully"");
+            alert.showAndWait();
+        }
+    }
+"
+com.rafsan.inventory.controller.supplier.EditController.validateInput,EditController.java,"boolean validateInput() {
+
+        String errorMessage = """";
+
+        if (supplierField.getText() == null || supplierField.getText().length() == 0) {
+            errorMessage += ""No valid first name!\n"";
+        }
+
+        if (phoneField.getText() == null || phoneField.getText().length() == 0) {
+            errorMessage += ""No valid phone number!\n"";
+        }
+
+        if (addressArea.getText() == null || addressArea.getText().length() == 0) {
+            errorMessage += ""No email address!\n"";
+        }
+
+        if (errorMessage.length() == 0) {
+            return true;
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle(""Invalid Fields"");
+            alert.setHeaderText(""Please correct invalid fields"");
+            alert.setContentText(errorMessage);
+            alert.showAndWait();
+
+            return false;
+        }
+    }
+"
+com.rafsan.inventory.controller.supplier.EditController.closeAction,EditController.java,"void closeAction(ActionEvent event) {
+        ((Node) (event.getSource())).getScene().getWindow().hide();
+    }
+"
+com.rafsan.inventory.controller.supplier.SupplierController.initialize,SupplierController.java,"void initialize(URL location, ResourceBundle resources) {
+        model = new SupplierModel();
+        
+        drawerAction();
+        loadData();
+
+        idColumn.setCellValueFactory(new PropertyValueFactory<>(""id""));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>(""name""));
+        phoneColumn.setCellValueFactory(new PropertyValueFactory<>(""phone""));
+        addressColumn.setCellValueFactory(new PropertyValueFactory<>(""address""));
+
+        supplierTable.setItems(SUPPLIERLIST);
+
+        filterData();
+        
+        editButton
+                .disableProperty()
+                .bind(Bindings.isEmpty(supplierTable.getSelectionModel().getSelectedItems()));
+        deleteButton
+                .disableProperty()
+                .bind(Bindings.isEmpty(supplierTable.getSelectionModel().getSelectedItems()));
+    }
+"
+com.rafsan.inventory.controller.supplier.SupplierController.filterData,SupplierController.java,"void filterData() {
+        FilteredList<Supplier> searchedData = new FilteredList<>(SUPPLIERLIST, e -> true);
+        searchField.setOnKeyReleased(e -> {
+            searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+                searchedData.setPredicate(supplier -> {
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true;
+                    }
+                    String lowerCaseFilter = newValue.toLowerCase();
+                    if (supplier.getName().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    } else if (supplier.getAddress().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    } else if (supplier.getPhone().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    }
+                    return false;
+                });
+            });
+
+            SortedList<Supplier> sortedData = new SortedList<>(searchedData);
+            sortedData.comparatorProperty().bind(supplierTable.comparatorProperty());
+            supplierTable.setItems(sortedData);
+        });
+    }
+"
+com.rafsan.inventory.controller.supplier.SupplierController.loadData,SupplierController.java,"void loadData(){
+    
+        if (!SUPPLIERLIST.isEmpty()) {
+            SUPPLIERLIST.clear();
+        }
+        
+        SUPPLIERLIST.addAll(model.getSuppliers());
+    }
+"
+com.rafsan.inventory.controller.supplier.SupplierController.drawerAction,SupplierController.java,"void drawerAction() {
+    
+        TranslateTransition openNav = new TranslateTransition(new Duration(350), drawer);
+        openNav.setToX(0);
+        TranslateTransition closeNav = new TranslateTransition(new Duration(350), drawer);
+        menu.setOnAction((ActionEvent evt) -> {
+            if (drawer.getTranslateX() != 0) {
+                openNav.play();
+                menu.getStyleClass().remove(""hamburger-button"");
+                menu.getStyleClass().add(""open-menu"");
+            } else {
+                closeNav.setToX(-(drawer.getWidth()));
+                closeNav.play();
+                menu.getStyleClass().remove(""open-menu"");
+                menu.getStyleClass().add(""hamburger-button"");
+            }
+        });
+    }
+"
+com.rafsan.inventory.controller.supplier.SupplierController.adminAction,SupplierController.java,"void adminAction(ActionEvent event) throws Exception {
+        windows(""/fxml/Admin.fxml"", ""Admin"", event);
+    }
+"
+com.rafsan.inventory.controller.supplier.SupplierController.productAction,SupplierController.java,"void productAction(ActionEvent event) throws Exception {
+
+        windows(""/fxml/Product.fxml"", ""Product"", event);
+    }
+"
+com.rafsan.inventory.controller.supplier.SupplierController.categoryAction,SupplierController.java,"void categoryAction(ActionEvent event) throws Exception {
+
+        windows(""/fxml/Category.fxml"", ""Category"", event);
+    }
+"
+com.rafsan.inventory.controller.supplier.SupplierController.purchaseAction,SupplierController.java,"void purchaseAction(ActionEvent event) throws Exception {
+
+        windows(""/fxml/Purchase.fxml"", ""Purchase"", event);
+    }
+"
+com.rafsan.inventory.controller.supplier.SupplierController.salesAction,SupplierController.java,"void salesAction(ActionEvent event) throws Exception {
+
+        windows(""/fxml/Sales.fxml"", ""Sales"", event);
+    }
+"
+com.rafsan.inventory.controller.supplier.SupplierController.reportAction,SupplierController.java,"void reportAction(ActionEvent event) throws Exception {
+        windows(""/fxml/Report.fxml"", ""Report"", event);
+    }
+"
+com.rafsan.inventory.controller.supplier.SupplierController.staffAction,SupplierController.java,"void staffAction(ActionEvent event) throws Exception {
+        windows(""/fxml/Employee.fxml"", ""Employee"", event);
+    }
+"
+com.rafsan.inventory.controller.supplier.SupplierController.logoutAction,SupplierController.java,"void logoutAction(ActionEvent event) throws Exception {
+        ((Node) (event.getSource())).getScene().getWindow().hide();
+        Parent root = FXMLLoader.load(getClass().getResource(""/fxml/Login.fxml""));
+        Stage stage = new Stage();
+        root.setOnMousePressed((MouseEvent e) -> {
+            xOffset = e.getSceneX();
+            yOffset = e.getSceneY();
+        });
+        root.setOnMouseDragged((MouseEvent e) -> {
+            stage.setX(e.getScreenX() - xOffset);
+            stage.setY(e.getScreenY() - yOffset);
+        });
+        Scene scene = new Scene(root);
+        stage.setTitle(""Inventory:: Version 1.0"");
+        stage.getIcons().add(new Image(""/images/logo.png""));
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setScene(scene);
+        stage.show();
+    }
+"
+com.rafsan.inventory.controller.supplier.SupplierController.windows,SupplierController.java,"void windows(String path, String title, ActionEvent event) throws Exception {
+
+        double width = ((Node) event.getSource()).getScene().getWidth();
+        double height = ((Node) event.getSource()).getScene().getHeight();
+
+        Parent root = FXMLLoader.load(getClass().getResource(path));
+        Scene scene = new Scene(root, width, height);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setTitle(title);
+        stage.getIcons().add(new Image(""/images/logo.png""));
+        stage.setScene(scene);
+        stage.show();
+    }
+"
+com.rafsan.inventory.controller.supplier.SupplierController.addAction,SupplierController.java,"void addAction(ActionEvent event) throws Exception {
+    
+        Parent root = FXMLLoader.load(getClass().getResource(""/fxml/supplier/Add.fxml""));
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        root.setOnMousePressed((MouseEvent e) -> {
+            xOffset = e.getSceneX();
+            yOffset = e.getSceneY();
+        });
+        root.setOnMouseDragged((MouseEvent e) -> {
+            stage.setX(e.getScreenX() - xOffset);
+            stage.setY(e.getScreenY() - yOffset);
+        });
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle(""New Supplier"");
+        stage.getIcons().add(new Image(""/images/logo.png""));
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setScene(scene);
+        stage.show();
+    }
+"
+com.rafsan.inventory.controller.supplier.SupplierController.editAction,SupplierController.java,"void editAction(ActionEvent event) throws Exception {
+
+        Supplier selectedSupplier = supplierTable.getSelectionModel().getSelectedItem();
+        int selectedSupplierId = supplierTable.getSelectionModel().getSelectedIndex();
+        FXMLLoader loader = new FXMLLoader((getClass().getResource(""/fxml/supplier/Edit.fxml"")));
+        EditController controller = new EditController();
+        loader.setController(controller);
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        root.setOnMousePressed((MouseEvent e) -> {
+            xOffset = e.getSceneX();
+            yOffset = e.getSceneY();
+        });
+        root.setOnMouseDragged((MouseEvent e) -> {
+            stage.setX(e.getScreenX() - xOffset);
+            stage.setY(e.getScreenY() - yOffset);
+        });
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle(""Update Details"");
+        stage.getIcons().add(new Image(""/images/logo.png""));
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setScene(scene);
+        stage.show();
+        controller.setSupplier(selectedSupplier, selectedSupplierId);
+        supplierTable.getSelectionModel().clearSelection();
+    }
+"
+com.rafsan.inventory.controller.supplier.SupplierController.deleteAction,SupplierController.java,"void deleteAction(ActionEvent event) {
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(""Remove"");
+        alert.setHeaderText(""Remove Supplier"");
+        alert.setContentText(""Are you sure?"");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            Supplier selectedSupplier = supplierTable.getSelectionModel().getSelectedItem();
+
+            model.deleteSuplier(selectedSupplier);
+            SUPPLIERLIST.remove(selectedSupplier);
+        }
+
+        supplierTable.getSelectionModel().clearSelection();
+    }
+"
+com.rafsan.inventory.controller.supplier.AddController.initialize,AddController.java,"void initialize(URL location, ResourceBundle resources) {
+        supplierModel = new SupplierModel();
+    }
+"
+com.rafsan.inventory.controller.supplier.AddController.handleCancel,AddController.java,"void handleCancel(ActionEvent event) {
+        supplierField.setText("""");
+        phoneField.setText("""");
+        addressArea.setText("""");
+    }
+"
+com.rafsan.inventory.controller.supplier.AddController.handleSave,AddController.java,"void handleSave(ActionEvent event) {
+
+        if (validateInput()) {
+
+            Supplier supplier = new Supplier(
+                    supplierField.getText(),
+                    phoneField.getText(),
+                    addressArea.getText()
+            );
+
+            supplierModel.saveSuplier(supplier);
+            SUPPLIERLIST.clear();
+            SUPPLIERLIST.addAll(supplierModel.getSuppliers());
+
+            ((Stage) saveButton.getScene().getWindow()).close();
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(""Successful"");
+            alert.setHeaderText(""Employee Created!"");
+            alert.setContentText(""Employee is created successfully"");
+            alert.showAndWait();
+        }
+    }
+"
+com.rafsan.inventory.controller.supplier.AddController.validateInput,AddController.java,"boolean validateInput() {
+
+        String errorMessage = """";
+
+        if (supplierField.getText() == null || supplierField.getText().length() == 0) {
+            errorMessage += ""No valid first name!\n"";
+        }
+
+        if (phoneField.getText() == null || phoneField.getText().length() == 0) {
+            errorMessage += ""No valid phone number!\n"";
+        }
+
+        if (addressArea.getText() == null || addressArea.getText().length() == 0) {
+            errorMessage += ""No email address!\n"";
+        }
+
+        if (errorMessage.length() == 0) {
+            return true;
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle(""Invalid Fields"");
+            alert.setHeaderText(""Please correct invalid fields"");
+            alert.setContentText(errorMessage);
+            alert.showAndWait();
+
+            return false;
+        }
+    }
+"
+com.rafsan.inventory.controller.supplier.AddController.closeAction,AddController.java,"void closeAction(ActionEvent event) {
+        ((Node) (event.getSource())).getScene().getWindow().hide();
+    }
+"
+com.rafsan.inventory.controller.purchase.PurchaseController.initialize,PurchaseController.java,"void initialize(URL location, ResourceBundle resources) {
+        model = new PurchaseModel();
+        
+        drawerAction();
+        loadData();
+        
+        idColumn.setCellValueFactory(new PropertyValueFactory<>(""id""));
+        productColumn.setCellValueFactory((TableColumn.CellDataFeatures<Purchase, String> p) -> 
+                new SimpleStringProperty(p.getValue().getProduct().getProductName()));
+        supplierColumn.setCellValueFactory((TableColumn.CellDataFeatures<Purchase, String> p)
+                -> new SimpleStringProperty(p.getValue().getSupplier().getName()));
+        quantityColumn.setCellValueFactory(new PropertyValueFactory<>(""quantity""));
+        priceColumn.setCellValueFactory(new PropertyValueFactory<>(""price""));
+        totalColumn.setCellValueFactory(new PropertyValueFactory<>(""total""));
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>(""date""));
+        purchaseTable.setItems(PURCHASELIST);
+        
+        filterData();
+        
+    }
+"
+com.rafsan.inventory.controller.purchase.PurchaseController.filterData,PurchaseController.java,"void filterData() {
+        FilteredList<Purchase> searchedData = new FilteredList<>(PURCHASELIST, e -> true);
+        searchField.setOnKeyReleased(e -> {
+            searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+                searchedData.setPredicate(purchase -> {
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true;
+                    }
+                    String lowerCaseFilter = newValue.toLowerCase();
+                    if (purchase.getProduct().getProductName().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    } else if (purchase.getProduct().getCategory().getType().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    }
+                    
+                    return false;
+                });
+            });
+
+            SortedList<Purchase> sortedData = new SortedList<>(searchedData);
+            sortedData.comparatorProperty().bind(purchaseTable.comparatorProperty());
+            purchaseTable.setItems(sortedData);
+        });
+    }
+"
+com.rafsan.inventory.controller.purchase.PurchaseController.loadData,PurchaseController.java,"void loadData() {
+    
+        if(!PURCHASELIST.isEmpty()){
+            PURCHASELIST.clear();
+        }
+        
+        PURCHASELIST.addAll(model.getPurchases());
+    }
+"
+com.rafsan.inventory.controller.purchase.PurchaseController.drawerAction,PurchaseController.java,"void drawerAction() {
+
+        TranslateTransition openNav = new TranslateTransition(new Duration(350), drawer);
+        openNav.setToX(0);
+        TranslateTransition closeNav = new TranslateTransition(new Duration(350), drawer);
+        menu.setOnAction((ActionEvent evt) -> {
+            if (drawer.getTranslateX() != 0) {
+                openNav.play();
+                menu.getStyleClass().remove(""hamburger-button"");
+                menu.getStyleClass().add(""open-menu"");
+            } else {
+                closeNav.setToX(-(drawer.getWidth()));
+                closeNav.play();
+                menu.getStyleClass().remove(""open-menu"");
+                menu.getStyleClass().add(""hamburger-button"");
+            }
+        });
+    }
+"
+com.rafsan.inventory.controller.purchase.PurchaseController.adminAction,PurchaseController.java,"void adminAction(ActionEvent event) throws Exception {
+        
+        windows(""/fxml/Admin.fxml"", ""Admin"", event);
+    }
+"
+com.rafsan.inventory.controller.purchase.PurchaseController.productAction,PurchaseController.java,"void productAction(ActionEvent event) throws Exception {
+
+        windows(""/fxml/Product.fxml"", ""Product"", event);
+    }
+"
+com.rafsan.inventory.controller.purchase.PurchaseController.categoryAction,PurchaseController.java,"void categoryAction(ActionEvent event) throws Exception {
+
+        windows(""/fxml/Category.fxml"", ""Category"", event);
+    }
+"
+com.rafsan.inventory.controller.purchase.PurchaseController.salesAction,PurchaseController.java,"void salesAction(ActionEvent event) throws Exception {
+
+        windows(""/fxml/Sales.fxml"", ""Sales"", event);
+    }
+"
+com.rafsan.inventory.controller.purchase.PurchaseController.reportAction,PurchaseController.java,"void reportAction(ActionEvent event) throws Exception {
+        
+        windows(""/fxml/Report.fxml"", ""Report"", event);
+    }
+"
+com.rafsan.inventory.controller.purchase.PurchaseController.supplierAction,PurchaseController.java,"void supplierAction(ActionEvent event) throws Exception {
+        
+        windows(""/fxml/Supplier.fxml"", ""Supplier"", event);
+    }
+"
+com.rafsan.inventory.controller.purchase.PurchaseController.staffAction,PurchaseController.java,"void staffAction(ActionEvent event) throws Exception {
+        
+        windows(""/fxml/Employee.fxml"", ""Employee"", event);
+    }
+"
+com.rafsan.inventory.controller.purchase.PurchaseController.logoutAction,PurchaseController.java,"void logoutAction(ActionEvent event) throws Exception {
+        ((Node) (event.getSource())).getScene().getWindow().hide();
+        Parent root = FXMLLoader.load(getClass().getResource(""/fxml/Login.fxml""));
+        Stage stage = new Stage();
+        root.setOnMousePressed((MouseEvent e) -> {
+            xOffset = e.getSceneX();
+            yOffset = e.getSceneY();
+        });
+        root.setOnMouseDragged((MouseEvent e) -> {
+            stage.setX(e.getScreenX() - xOffset);
+            stage.setY(e.getScreenY() - yOffset);
+        });
+        Scene scene = new Scene(root);
+        stage.setTitle(""Inventory:: Version 1.0"");
+        stage.getIcons().add(new Image(""/images/logo.png""));
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setScene(scene);
+        stage.show();
+        
+    }
+"
+com.rafsan.inventory.controller.purchase.PurchaseController.windows,PurchaseController.java,"void windows(String path, String title, ActionEvent event) throws Exception {
+
+        double width = ((Node) event.getSource()).getScene().getWidth();
+        double height = ((Node) event.getSource()).getScene().getHeight();
+
+        Parent root = FXMLLoader.load(getClass().getResource(path));
+        Scene scene = new Scene(root, width, height);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setTitle(title);
+        stage.getIcons().add(new Image(""/images/logo.png""));
+        stage.setScene(scene);
+        stage.show();
+    }
+"
+com.rafsan.inventory.controller.purchase.PurchaseController.addAction,PurchaseController.java,"void addAction(ActionEvent event) throws Exception {
+    
+        Parent root = FXMLLoader.load(getClass().getResource(""/fxml/purchase/Add.fxml""));
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        root.setOnMousePressed((MouseEvent e) -> {
+            xOffset = e.getSceneX();
+            yOffset = e.getSceneY();
+        });
+        root.setOnMouseDragged((MouseEvent e) -> {
+            stage.setX(e.getScreenX() - xOffset);
+            stage.setY(e.getScreenY() - yOffset);
+        });
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle(""New Purchase"");
+        stage.getIcons().add(new Image(""/images/logo.png""));
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setScene(scene);
+        stage.show();
+    }
+"
+com.rafsan.inventory.controller.purchase.AddController.initialize,AddController.java,"void initialize(URL location, ResourceBundle resources) {
+        productModel = new ProductModel();
+        supplierModel = new SupplierModel();
+        purchaseModel = new PurchaseModel();
+        ObservableList<String> productList = FXCollections.observableArrayList(productModel.getProductNames());
+        ObservableList<String> supplierList = FXCollections.observableArrayList(supplierModel.getNames());
+        productBox.setItems(productList);
+        supplierBox.setItems(supplierList);
+    }
+"
+com.rafsan.inventory.controller.purchase.AddController.handleSave,AddController.java,"void handleSave(ActionEvent event) {
+
+        if (validateInput()) {
+
+            Product product = productModel.getProduct(productBox.getSelectionModel().getSelectedIndex() + 1);
+            Supplier supplier = supplierModel.getSupplier(supplierBox.getSelectionModel().getSelectedIndex() + 1);
+            double quantity = Double.parseDouble(quantityField.getText());
+            double price = Double.parseDouble(priceField.getText());
+            double total = quantity * price;
+            Purchase purchase = new Purchase(
+                    product,
+                    supplier,
+                    quantity,
+                    price,
+                    total
+            );
+
+            Product updatingProduct = productModel.getProduct(product.getId());
+            updatingProduct.setQuantity(updatingProduct.getQuantity() + quantity);
+            productModel.increaseProduct(updatingProduct);
+
+            purchaseModel.savePurchase(purchase);
+            PURCHASELIST.clear();
+            PURCHASELIST.addAll(purchaseModel.getPurchases());
+
+            ((Stage) saveButton.getScene().getWindow()).close();
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(""Successful"");
+            alert.setHeaderText(""Purchase Completed"");
+            alert.setContentText(""Product is added successfully"");
+            alert.showAndWait();
+        }
+    }
+"
+com.rafsan.inventory.controller.purchase.AddController.handleCancel,AddController.java,"void handleCancel(ActionEvent event) {
+        priceField.setText("""");
+        quantityField.setText("""");
+        productBox.valueProperty().setValue(null);
+        supplierBox.valueProperty().setValue(null);
+    }
+"
+com.rafsan.inventory.controller.purchase.AddController.validateInput,AddController.java,"boolean validateInput() {
+
+        String errorMessage = """";
+
+        if (priceField.getText() == null || priceField.getText().length() == 0) {
+            errorMessage += ""No valid price!\n"";
+        }
+
+        if (quantityField.getText() == null || quantityField.getText().length() == 0) {
+            errorMessage += ""No valid quantity!\n"";
+        }
+
+        if (productBox.getSelectionModel().isEmpty()) {
+            errorMessage += ""Please select the product!\n"";
+        }
+
+        if (supplierBox.getSelectionModel().isEmpty()) {
+            errorMessage += ""Please select the supplier!\n"";
+        }
+
+        if (errorMessage.length() == 0) {
+            return true;
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle(""Invalid Fields"");
+            alert.setHeaderText(""Please correct invalid fields"");
+            alert.setContentText(errorMessage);
+            alert.showAndWait();
+
+            return false;
+        }
+    }
+"
+com.rafsan.inventory.controller.purchase.AddController.closeAction,AddController.java,"void closeAction(ActionEvent event) {
+        ((Node) (event.getSource())).getScene().getWindow().hide();
+    }
+"
+com.rafsan.inventory.controller.report.ViewController.setReport,ViewController.java,"void setReport(Invoice invoice){
+        this.invoice = invoice;
+        setData();
+    }
+"
+com.rafsan.inventory.controller.report.ViewController.setData,ViewController.java,"void setData() {
+        serialLabel.setText(""Transcation ID# "" + invoice.getId());
+        dateLabel.setText(""Date: "" + invoice.getDate());
+        employeeField.setText(invoice.getEmployee().getUserName());
+        totalField.setText(String.valueOf(invoice.getTotal()));
+        vatField.setText(String.valueOf(invoice.getVat()));
+        discountField.setText(String.valueOf(invoice.getDiscount()));
+        payableField.setText(String.valueOf(invoice.getPayable()));
+        paidField.setText(String.valueOf(invoice.getPaid()));
+        returnedField.setText(String.valueOf(invoice.getReturned()));
+    }
+"
+com.rafsan.inventory.controller.report.ViewController.closeAction,ViewController.java,"void closeAction(ActionEvent event) {
+        ((Node) (event.getSource())).getScene().getWindow().hide();
+    }
+"
+com.rafsan.inventory.controller.report.ReportController.initialize,ReportController.java,"void initialize(URL location, ResourceBundle resources) {
+        model = new InvoiceModel();
+        
+        drawerAction();
+        loadData();
+
+        idColumn.setCellValueFactory(new PropertyValueFactory<>(""id""));
+        employeeColumn.setCellValueFactory((TableColumn.CellDataFeatures<Invoice, String> p)
+                -> new SimpleStringProperty(p.getValue().getEmployee().getUserName()));
+        totalColumn.setCellValueFactory(new PropertyValueFactory<>(""total""));
+        vatColumn.setCellValueFactory(new PropertyValueFactory<>(""vat""));
+        discountColumn.setCellValueFactory(new PropertyValueFactory<>(""discount""));
+        payableColumn.setCellValueFactory(new PropertyValueFactory<>(""payable""));
+        paidColumn.setCellValueFactory(new PropertyValueFactory<>(""paid""));
+        returnedColumn.setCellValueFactory(new PropertyValueFactory<>(""returned""));
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>(""date""));
+        reportTable.setItems(REPORTLIST);
+
+        filterData();
+
+        viewButton
+                .disableProperty()
+                .bind(Bindings.isEmpty(reportTable.getSelectionModel().getSelectedItems()));
+    }
+"
+com.rafsan.inventory.controller.report.ReportController.filterData,ReportController.java,"void filterData() {
+        FilteredList<Invoice> searchedData = new FilteredList<>(REPORTLIST, e -> true);
+        searchField.setOnKeyReleased(e -> {
+            searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+                searchedData.setPredicate(report -> {
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true;
+                    }
+                    String lowerCaseFilter = newValue.toLowerCase();
+                    return report.getEmployee().getUserName().toLowerCase().contains(lowerCaseFilter);
+                });
+            });
+
+            SortedList<Invoice> sortedData = new SortedList<>(searchedData);
+            sortedData.comparatorProperty().bind(reportTable.comparatorProperty());
+            reportTable.setItems(sortedData);
+        });
+    }
+"
+com.rafsan.inventory.controller.report.ReportController.loadData,ReportController.java,"void loadData(){
+    
+        if (!REPORTLIST.isEmpty()) {
+            REPORTLIST.clear();
+        }
+        REPORTLIST.addAll(model.getInvoices());
+    }
+"
+com.rafsan.inventory.controller.report.ReportController.drawerAction,ReportController.java,"void drawerAction() {
+
+        TranslateTransition openNav = new TranslateTransition(new Duration(350), drawer);
+        openNav.setToX(0);
+        TranslateTransition closeNav = new TranslateTransition(new Duration(350), drawer);
+        menu.setOnAction((ActionEvent evt) -> {
+            if (drawer.getTranslateX() != 0) {
+                openNav.play();
+                menu.getStyleClass().remove(""hamburger-button"");
+                menu.getStyleClass().add(""open-menu"");
+            } else {
+                closeNav.setToX(-(drawer.getWidth()));
+                closeNav.play();
+                menu.getStyleClass().remove(""open-menu"");
+                menu.getStyleClass().add(""hamburger-button"");
+            }
+        });
+    }
+"
+com.rafsan.inventory.controller.report.ReportController.adminAction,ReportController.java,"void adminAction(ActionEvent event) throws Exception {
+        windows(""/fxml/Admin.fxml"", ""Admin"", event);
+    }
+"
+com.rafsan.inventory.controller.report.ReportController.productAction,ReportController.java,"void productAction(ActionEvent event) throws Exception {
+
+        windows(""/fxml/Admin.fxml"", ""Admin"", event);
+    }
+"
+com.rafsan.inventory.controller.report.ReportController.categoryAction,ReportController.java,"void categoryAction(ActionEvent event) throws Exception {
+
+        windows(""/fxml/Category.fxml"", ""Category"", event);
+    }
+"
+com.rafsan.inventory.controller.report.ReportController.purchaseAction,ReportController.java,"void purchaseAction(ActionEvent event) throws Exception {
+
+        windows(""/fxml/Purchase.fxml"", ""Purchase"", event);
+    }
+"
+com.rafsan.inventory.controller.report.ReportController.salesAction,ReportController.java,"void salesAction(ActionEvent event) throws Exception {
+
+        windows(""/fxml/Sales.fxml"", ""Sales"", event);
+    }
+"
+com.rafsan.inventory.controller.report.ReportController.supplierAction,ReportController.java,"void supplierAction(ActionEvent event) throws Exception {
+        windows(""/fxml/Supplier.fxml"", ""Supplier"", event);
+    }
+"
+com.rafsan.inventory.controller.report.ReportController.staffAction,ReportController.java,"void staffAction(ActionEvent event) throws Exception {
+        windows(""/fxml/Employee.fxml"", ""Employee"", event);
+    }
+"
+com.rafsan.inventory.controller.report.ReportController.logoutAction,ReportController.java,"void logoutAction(ActionEvent event) throws Exception {
+        ((Node) (event.getSource())).getScene().getWindow().hide();
+        Parent root = FXMLLoader.load(getClass().getResource(""/fxml/Login.fxml""));
+        Stage stage = new Stage();
+        root.setOnMousePressed((MouseEvent e) -> {
+            xOffset = e.getSceneX();
+            yOffset = e.getSceneY();
+        });
+        root.setOnMouseDragged((MouseEvent e) -> {
+            stage.setX(e.getScreenX() - xOffset);
+            stage.setY(e.getScreenY() - yOffset);
+        });
+        Scene scene = new Scene(root);
+        stage.setTitle(""Inventory:: Version 1.0"");
+        stage.getIcons().add(new Image(""/images/logo.png""));
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setScene(scene);
+        stage.show();
+
+    }
+"
+com.rafsan.inventory.controller.report.ReportController.windows,ReportController.java,"void windows(String path, String title, ActionEvent event) throws Exception {
+
+        double width = ((Node) event.getSource()).getScene().getWidth();
+        double height = ((Node) event.getSource()).getScene().getHeight();
+
+        Parent root = FXMLLoader.load(getClass().getResource(path));
+        Scene scene = new Scene(root, width, height);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setTitle(title);
+        stage.getIcons().add(new Image(""/images/logo.png""));
+        stage.setScene(scene);
+        stage.show();
+    }
+"
+com.rafsan.inventory.controller.report.ReportController.viewAction,ReportController.java,"void viewAction(ActionEvent event) throws IOException {
+
+        Invoice selectedInvoice = reportTable.getSelectionModel().getSelectedItem();
+        FXMLLoader loader = new FXMLLoader((getClass().getResource(""/fxml/report/View.fxml"")));
+        ViewController controller = new ViewController();
+        loader.setController(controller);
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        root.setOnMousePressed((MouseEvent e) -> {
+            xOffset = e.getSceneX();
+            yOffset = e.getSceneY();
+        });
+        root.setOnMouseDragged((MouseEvent e) -> {
+            stage.setX(e.getScreenX() - xOffset);
+            stage.setY(e.getScreenY() - yOffset);
+        });
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle(""View Details"");
+        stage.getIcons().add(new Image(""/images/logo.png""));
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setScene(scene);
+        stage.show();
+        controller.setReport(selectedInvoice);
+        reportTable.getSelectionModel().clearSelection();
+    }
+"
+com.rafsan.inventory.controller.employee.EditController.initialize,EditController.java,"void initialize(URL location, ResourceBundle resources) {
+        employeeModel = new EmployeeModel();
+        resetValues();
+    }
+"
+com.rafsan.inventory.controller.employee.EditController.setEmployee,EditController.java,"void setEmployee(Employee employee, long selectedEmployeeId) {
+        this.employee = employee;
+        this.selectedEmployeeId = selectedEmployeeId;
+        setData();
+    }
+"
+com.rafsan.inventory.controller.employee.EditController.handleSave,EditController.java,"void handleSave(ActionEvent event) {
+
+        if (validateInput()) {
+
+            Employee editedEmployee = new Employee(
+                    employee.getId(),
+                    firstField.getText(),
+                    lastField.getText(),
+                    usernameField.getText(),
+                    DigestUtils.sha1Hex(passwordField.getText()),
+                    phoneField.getText(),
+                    addressArea.getText()
+            );
+
+            employeeModel.updateEmployee(editedEmployee);
+            EMPLOYEELIST.set((int) selectedEmployeeId, editedEmployee);
+
+            ((Stage) saveButton.getScene().getWindow()).close();
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(""Successful"");
+            alert.setHeaderText(""Employee Updated!"");
+            alert.setContentText(""Employee is updated successfully"");
+            alert.showAndWait();
+        }
+    }
+"
+com.rafsan.inventory.controller.employee.EditController.setData,EditController.java,"void setData() {
+        firstField.setText(employee.getFirstName());
+        lastField.setText(employee.getLastName());
+        usernameField.setText(employee.getUserName());
+        passwordField.setText(employee.getPassword());
+        phoneField.setText(employee.getPhone());
+        addressArea.setText(employee.getAddress());
+    }
+"
+com.rafsan.inventory.controller.employee.EditController.resetValues,EditController.java,"void resetValues() {
+        firstField.setText("""");
+        lastField.setText("""");
+        usernameField.setText("""");
+        passwordField.setText("""");
+        phoneField.setText("""");
+        addressArea.setText("""");
+    }
+"
+com.rafsan.inventory.controller.employee.EditController.handleCancel,EditController.java,"void handleCancel(ActionEvent event) {
+        resetValues();
+    }
+"
+com.rafsan.inventory.controller.employee.EditController.validateInput,EditController.java,"boolean validateInput() {
+
+        String errorMessage = """";
+
+        if (firstField.getText() == null || firstField.getText().length() == 0) {
+            errorMessage += ""No valid first name!\n"";
+        }
+
+        if (lastField.getText() == null || lastField.getText().length() == 0) {
+            errorMessage += ""No valid last name!\n"";
+        }
+
+        if (usernameField.getText() == null || usernameField.getText().length() == 0) {
+            errorMessage += ""No valid username!\n"";
+        }
+
+        if (passwordField.getText() == null || passwordField.getText().length() == 0) {
+            errorMessage += ""No valid password!\n"";
+        }
+
+        if (phoneField.getText() == null || phoneField.getText().length() == 0) {
+            errorMessage += ""No valid phone number!\n"";
+        }
+
+        if (addressArea.getText() == null || addressArea.getText().length() == 0) {
+            errorMessage += ""No email address!\n"";
+        }
+
+        if (errorMessage.length() == 0) {
+            return true;
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle(""Invalid Fields"");
+            alert.setHeaderText(""Please correct invalid fields"");
+            alert.setContentText(errorMessage);
+            alert.showAndWait();
+
+            return false;
+        }
+    }
+"
+com.rafsan.inventory.controller.employee.EditController.closeAction,EditController.java,"void closeAction(ActionEvent event) {
+        ((Node) (event.getSource())).getScene().getWindow().hide();
+    }
+"
+com.rafsan.inventory.controller.employee.AddController.initialize,AddController.java,"void initialize(URL location, ResourceBundle resources) {
+        employeeModel = new EmployeeModel();
+    }
+"
+com.rafsan.inventory.controller.employee.AddController.handleCancel,AddController.java,"void handleCancel(ActionEvent event) {
+        firstField.setText("""");
+        lastField.setText("""");
+        usernameField.setText("""");
+        passwordField.setText("""");
+        phoneField.setText("""");
+        addressArea.setText("""");
+    }
+"
+com.rafsan.inventory.controller.employee.AddController.handleSave,AddController.java,"void handleSave(ActionEvent event) {
+
+        if (validateInput()) {
+
+            Employee employee = new Employee(
+                    firstField.getText(),
+                    lastField.getText(),
+                    usernameField.getText(),
+                    DigestUtils.sha1Hex(passwordField.getText()),
+                    phoneField.getText(),
+                    addressArea.getText()
+            );
+
+            employeeModel.saveEmployee(employee);
+            EMPLOYEELIST.clear();
+            EMPLOYEELIST.addAll(employeeModel.getEmployees());
+
+            ((Stage) saveButton.getScene().getWindow()).close();
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(""Successful"");
+            alert.setHeaderText(""Employe Created!"");
+            alert.setContentText(""Employee is created successfully"");
+            alert.showAndWait();
+        }
+    }
+"
+com.rafsan.inventory.controller.employee.AddController.validateInput,AddController.java,"boolean validateInput() {
+
+        String errorMessage = """";
+
+        if (firstField.getText() == null || firstField.getText().length() == 0) {
+            errorMessage += ""No valid first name!\n"";
+        }
+
+        if (lastField.getText() == null || lastField.getText().length() == 0) {
+            errorMessage += ""No valid last name!\n"";
+        }
+
+        if (usernameField.getText() == null || usernameField.getText().length() == 0) {
+            errorMessage += ""No valid username!\n"";
+        }
+
+        if (passwordField.getText() == null || passwordField.getText().length() == 0) {
+            errorMessage += ""No valid password!\n"";
+        }
+
+        if (phoneField.getText() == null || phoneField.getText().length() == 0) {
+            errorMessage += ""No valid phone number!\n"";
+        }
+
+        if (addressArea.getText() == null || addressArea.getText().length() == 0) {
+            errorMessage += ""No email address!\n"";
+        }
+
+        if (errorMessage.length() == 0) {
+            return true;
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle(""Invalid Fields"");
+            alert.setHeaderText(""Please correct invalid fields"");
+            alert.setContentText(errorMessage);
+            alert.showAndWait();
+
+            return false;
+        }
+    }
+"
+com.rafsan.inventory.controller.employee.AddController.closeAction,AddController.java,"void closeAction(ActionEvent event) {
+        ((Node) (event.getSource())).getScene().getWindow().hide();
+    }
+"
+com.rafsan.inventory.controller.employee.EmployeeController.initialize,EmployeeController.java,"void initialize(URL location, ResourceBundle resources) {
+        model = new EmployeeModel();
+
+        drawerAction();
+        loadData();
+
+        idColumn.setCellValueFactory(new PropertyValueFactory<>(""id""));
+        firstnameColumn.setCellValueFactory(new PropertyValueFactory<>(""firstName""));
+        lastnameColumn.setCellValueFactory(new PropertyValueFactory<>(""lastName""));
+        usernameColumn.setCellValueFactory(new PropertyValueFactory<>(""userName""));
+        passwordColumn.setCellValueFactory(new PropertyValueFactory<>(""password""));
+        phoneColumn.setCellValueFactory(new PropertyValueFactory<>(""phone""));
+        addressColumn.setCellValueFactory(new PropertyValueFactory<>(""address""));
+
+        employeeTable.setItems(EMPLOYEELIST);
+
+        filterData();
+
+        editButton
+                .disableProperty()
+                .bind(Bindings.isEmpty(employeeTable.getSelectionModel().getSelectedItems()));
+        deleteButton
+                .disableProperty()
+                .bind(Bindings.isEmpty(employeeTable.getSelectionModel().getSelectedItems()));
+    }
+"
+com.rafsan.inventory.controller.employee.EmployeeController.filterData,EmployeeController.java,"void filterData() {
+        FilteredList<Employee> searchedData = new FilteredList<>(EMPLOYEELIST, e -> true);
+        searchField.setOnKeyReleased(e -> {
+            searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+                searchedData.setPredicate(employee -> {
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true;
+                    }
+                    String lowerCaseFilter = newValue.toLowerCase();
+                    if (employee.getFirstName().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    } else if (employee.getLastName().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    } else if (employee.getPhone().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    } else if (employee.getUserName().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    }
+                    return false;
+                });
+            });
+
+            SortedList<Employee> sortedData = new SortedList<>(searchedData);
+            sortedData.comparatorProperty().bind(employeeTable.comparatorProperty());
+            employeeTable.setItems(sortedData);
+        });
+    }
+"
+com.rafsan.inventory.controller.employee.EmployeeController.loadData,EmployeeController.java,"void loadData() {
+
+        if (!EMPLOYEELIST.isEmpty()) {
+            EMPLOYEELIST.clear();
+        }
+        EMPLOYEELIST.addAll(model.getEmployees());
+    }
+"
+com.rafsan.inventory.controller.employee.EmployeeController.drawerAction,EmployeeController.java,"void drawerAction() {
+
+        TranslateTransition openNav = new TranslateTransition(new Duration(350), drawer);
+        openNav.setToX(0);
+        TranslateTransition closeNav = new TranslateTransition(new Duration(350), drawer);
+        menu.setOnAction((ActionEvent evt) -> {
+            if (drawer.getTranslateX() != 0) {
+                openNav.play();
+                menu.getStyleClass().remove(""hamburger-button"");
+                menu.getStyleClass().add(""open-menu"");
+            } else {
+                closeNav.setToX(-(drawer.getWidth()));
+                closeNav.play();
+                menu.getStyleClass().remove(""open-menu"");
+                menu.getStyleClass().add(""hamburger-button"");
+            }
+        });
+    }
+"
+com.rafsan.inventory.controller.employee.EmployeeController.adminAction,EmployeeController.java,"void adminAction(ActionEvent event) throws Exception {
+        windows(""/fxml/Admin.fxml"", ""Admin"", event);
+    }
+"
+com.rafsan.inventory.controller.employee.EmployeeController.productAction,EmployeeController.java,"void productAction(ActionEvent event) throws Exception {
+
+        windows(""/fxml/Product.fxml"", ""Product"", event);
+    }
+"
+com.rafsan.inventory.controller.employee.EmployeeController.categoryAction,EmployeeController.java,"void categoryAction(ActionEvent event) throws Exception {
+
+        windows(""/fxml/Category.fxml"", ""Category"", event);
+    }
+"
+com.rafsan.inventory.controller.employee.EmployeeController.purchaseAction,EmployeeController.java,"void purchaseAction(ActionEvent event) throws Exception {
+
+        windows(""/fxml/Purchase.fxml"", ""Purchase"", event);
+    }
+"
+com.rafsan.inventory.controller.employee.EmployeeController.salesAction,EmployeeController.java,"void salesAction(ActionEvent event) throws Exception {
+
+        windows(""/fxml/Sales.fxml"", ""Sales"", event);
+    }
+"
+com.rafsan.inventory.controller.employee.EmployeeController.reportAction,EmployeeController.java,"void reportAction(ActionEvent event) throws Exception {
+        windows(""/fxml/Report.fxml"", ""Report"", event);
+    }
+"
+com.rafsan.inventory.controller.employee.EmployeeController.supplierAction,EmployeeController.java,"void supplierAction(ActionEvent event) throws Exception {
+        windows(""/fxml/Supplier.fxml"", ""Supplier"", event);
+    }
+"
+com.rafsan.inventory.controller.employee.EmployeeController.logoutAction,EmployeeController.java,"void logoutAction(ActionEvent event) throws Exception {
+        ((Node) (event.getSource())).getScene().getWindow().hide();
+        Parent root = FXMLLoader.load(getClass().getResource(""/fxml/Login.fxml""));
+        Stage stage = new Stage();
+        root.setOnMousePressed((MouseEvent e) -> {
+            xOffset = e.getSceneX();
+            yOffset = e.getSceneY();
+        });
+        root.setOnMouseDragged((MouseEvent e) -> {
+            stage.setX(e.getScreenX() - xOffset);
+            stage.setY(e.getScreenY() - yOffset);
+        });
+        Scene scene = new Scene(root);
+        stage.setTitle(""Inventory:: Version 1.0"");
+        stage.getIcons().add(new Image(""/images/logo.png""));
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setScene(scene);
+        stage.show();
+
+    }
+"
+com.rafsan.inventory.controller.employee.EmployeeController.windows,EmployeeController.java,"void windows(String path, String title, ActionEvent event) throws Exception {
+
+        double width = ((Node) event.getSource()).getScene().getWidth();
+        double height = ((Node) event.getSource()).getScene().getHeight();
+
+        Parent root = FXMLLoader.load(getClass().getResource(path));
+        Scene scene = new Scene(root, width, height);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setTitle(title);
+        stage.getIcons().add(new Image(""/images/logo.png""));
+        stage.setScene(scene);
+        stage.show();
+    }
+"
+com.rafsan.inventory.controller.employee.EmployeeController.addAction,EmployeeController.java,"void addAction(ActionEvent event) throws Exception {
+
+        Parent root = FXMLLoader.load(getClass().getResource(""/fxml/employee/Add.fxml""));
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        root.setOnMousePressed((MouseEvent e) -> {
+            xOffset = e.getSceneX();
+            yOffset = e.getSceneY();
+        });
+        root.setOnMouseDragged((MouseEvent e) -> {
+            stage.setX(e.getScreenX() - xOffset);
+            stage.setY(e.getScreenY() - yOffset);
+        });
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle(""New Employee"");
+        stage.getIcons().add(new Image(""/images/logo.png""));
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setScene(scene);
+        stage.show();
+    }
+"
+com.rafsan.inventory.controller.employee.EmployeeController.editAction,EmployeeController.java,"void editAction(ActionEvent event) throws Exception {
+
+        Employee selectedEmployee = employeeTable.getSelectionModel().getSelectedItem();
+        int selectedEmployeeId = employeeTable.getSelectionModel().getSelectedIndex();
+        FXMLLoader loader = new FXMLLoader((getClass().getResource(""/fxml/employee/Edit.fxml"")));
+        EditController controller = new EditController();
+        loader.setController(controller);
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        root.setOnMousePressed((MouseEvent e) -> {
+            xOffset = e.getSceneX();
+            yOffset = e.getSceneY();
+        });
+        root.setOnMouseDragged((MouseEvent e) -> {
+            stage.setX(e.getScreenX() - xOffset);
+            stage.setY(e.getScreenY() - yOffset);
+        });
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle(""Update Details"");
+        stage.getIcons().add(new Image(""/images/logo.png""));
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setScene(scene);
+        stage.show();
+        controller.setEmployee(selectedEmployee, selectedEmployeeId);
+        employeeTable.getSelectionModel().clearSelection();
+
+    }
+"
+com.rafsan.inventory.controller.employee.EmployeeController.deleteAction,EmployeeController.java,"void deleteAction(ActionEvent event) {
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(""Remove"");
+        alert.setHeaderText(""Remove Employee"");
+        alert.setContentText(""Are you sure?"");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            Employee selectedEmployee = employeeTable.getSelectionModel().getSelectedItem();
+
+            model.deleteEmployee(selectedEmployee);
+            EMPLOYEELIST.remove(selectedEmployee);
+        }
+
+        employeeTable.getSelectionModel().clearSelection();
+    }
+"
+com.rafsan.inventory.controller.login.LoginController.initialize,LoginController.java,"void initialize(URL url, ResourceBundle rb) {
+        model = new EmployeeModel();
+        enterPressed();
+    }
+"
+com.rafsan.inventory.controller.login.LoginController.enterPressed,LoginController.java,"void enterPressed() {
+
+        usernameField.setOnKeyPressed((KeyEvent ke) -> {
+            if (ke.getCode().equals(KeyCode.ENTER)) {
+                try {
+                    authenticate(ke);
+                } catch (Exception ex) {
+                    System.out.println(ex.getMessage());
+                }
+            }
+        });
+
+        passwordField.setOnKeyPressed((KeyEvent ke) -> {
+            if (ke.getCode().equals(KeyCode.ENTER)) {
+                try {
+                    authenticate(ke);
+                } catch (Exception ex) {
+                    System.out.println(ex.getMessage());
+                }
+            }
+        });
+    }
+"
+com.rafsan.inventory.controller.login.LoginController.loginAction,LoginController.java,"void loginAction(ActionEvent event) throws Exception {
+
+        authenticate(event);
+    }
+"
+com.rafsan.inventory.controller.login.LoginController.authenticate,LoginController.java,"void authenticate(Event event) throws Exception {
+        if (validateInput()) {
+
+            String username = usernameField.getText().trim();
+            String password = DigestUtils.sha1Hex((passwordField.getText().trim()));
+
+            if (model.checkUser(username)) {
+
+                if (model.checkPassword(username, password)) {
+
+                    ((Node) (event.getSource())).getScene().getWindow().hide();
+
+                    String type = model.getEmployeeType(username);
+
+                    switch (type) {
+                        case ""admin"":
+                            windows(""/fxml/Admin.fxml"", ""Admin Panel"");
+                            break;
+
+                        case ""employee"":
+                            windows(""/fxml/Pos.fxml"", ""Point of Sales"");
+                            break;
+                    }
+                } else {
+                    passwordField.setText("""");
+                    errorLabel.setText(""Wrong Password!"");
+                }
+            } else {
+                resetFields();
+                errorLabel.setText(""User doesn't exist!"");
+            }
+        }
+    }
+"
+com.rafsan.inventory.controller.login.LoginController.windows,LoginController.java,"void windows(String path, String title) throws Exception {
+
+        Parent root = FXMLLoader.load(getClass().getResource(path));
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        stage.setTitle(title);
+        stage.getIcons().add(new Image(""/images/logo.png""));
+        stage.setScene(scene);
+        stage.show();
+    }
+"
+com.rafsan.inventory.controller.login.LoginController.resetFields,LoginController.java,"void resetFields() {
+        usernameField.setText("""");
+        passwordField.setText("""");
+    }
+"
+com.rafsan.inventory.controller.login.LoginController.cancelAction,LoginController.java,"void cancelAction(ActionEvent event) {
+        resetFields();
+    }
+"
+com.rafsan.inventory.controller.login.LoginController.closeAction,LoginController.java,"void closeAction(ActionEvent event) {
+        Platform.exit();
+    }
+"
+com.rafsan.inventory.controller.login.LoginController.minusAction,LoginController.java,"void minusAction(ActionEvent event) {
+        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        stage.setIconified(true);
+    }
+"
+com.rafsan.inventory.controller.login.LoginController.validateInput,LoginController.java,"boolean validateInput() {
+
+        String errorMessage = """";
+
+        if (usernameField.getText() == null || passwordField.getText().length() == 0) {
+            errorMessage += ""Please enter credentials!\n"";
+        }
+
+        if (errorMessage.length() == 0) {
+            return true;
+        } else {
+            errorLabel.setText(errorMessage);
+            return false;
+        }
+    }
+"
+com.rafsan.inventory.model.SupplierModel.getSuppliers,SupplierModel.java,"ObservableList<Supplier> getSuppliers() {
+
+        ObservableList<Supplier> list = FXCollections.observableArrayList();
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        List<Supplier> suppliers = session.createQuery(""from Supplier"").list();
+        session.beginTransaction().commit();
+        suppliers.stream().forEach(list::add);
+
+        return list;
+    }
+"
+com.rafsan.inventory.model.SupplierModel.getSupplier,SupplierModel.java,"Supplier getSupplier(long id) {
+
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Supplier supplier = session.get(Supplier.class, id);
+        session.getTransaction().commit();
+
+        return supplier;
+    }
+"
+com.rafsan.inventory.model.SupplierModel.saveSuplier,SupplierModel.java,"void saveSuplier(Supplier supplier) {
+
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        session.save(supplier);
+        session.getTransaction().commit();
+    }
+"
+com.rafsan.inventory.model.SupplierModel.updateSuplier,SupplierModel.java,"void updateSuplier(Supplier supplier) {
+
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Supplier s = session.get(Supplier.class, supplier.getId());
+        s.setName(supplier.getName());
+        s.setPhone(supplier.getPhone());
+        s.setAddress(supplier.getAddress());
+        session.getTransaction().commit();
+    }
+"
+com.rafsan.inventory.model.SupplierModel.deleteSuplier,SupplierModel.java,"void deleteSuplier(Supplier supplier) {
+
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Supplier s = session.get(Supplier.class, supplier.getId());
+        session.delete(s);
+        session.getTransaction().commit();
+    }
+"
+com.rafsan.inventory.model.SupplierModel.getNames,SupplierModel.java,"ObservableList<String> getNames(){
+    
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(Supplier.class);
+        criteria.setProjection(Projections.property(""name""));
+        ObservableList<String> list = FXCollections.observableArrayList(criteria.list());
+        session.getTransaction().commit();
+        
+        return list;
+    }
+"
+com.rafsan.inventory.model.EmployeeModel.getEmployees,EmployeeModel.java,"ObservableList<Employee> getEmployees() {
+
+        ObservableList<Employee> list = FXCollections.observableArrayList();
+
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        List<Employee> employees = session.createQuery(""from Employee"").list();
+        session.beginTransaction().commit();
+        employees.stream().forEach(list::add);
+
+        return list;
+    }
+"
+com.rafsan.inventory.model.EmployeeModel.getEmployee,EmployeeModel.java,"Employee getEmployee(long id) {
+
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Employee employee = session.get(Employee.class, id);
+        session.getTransaction().commit();
+
+        return employee;
+    }
+"
+com.rafsan.inventory.model.EmployeeModel.getEmployeeType,EmployeeModel.java,"String getEmployeeType(String username){
+    
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Query query = session.createQuery(""from Employee where userName = :username"");
+        query.setParameter(""username"", username);
+        Employee employee = (Employee) query.uniqueResult();
+        session.getTransaction().commit();
+       
+        return employee.getType();
+    }
+"
+com.rafsan.inventory.model.EmployeeModel.saveEmployee,EmployeeModel.java,"void saveEmployee(Employee employee) {
+
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        session.save(employee);
+        session.getTransaction().commit();
+    }
+"
+com.rafsan.inventory.model.EmployeeModel.updateEmployee,EmployeeModel.java,"void updateEmployee(Employee employee) {
+
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Employee e = session.get(Employee.class, employee.getId());
+        e.setFirstName(employee.getFirstName());
+        e.setLastName(employee.getLastName());
+        e.setUserName(employee.getUserName());
+        e.setPassword(employee.getPassword());
+        e.setPhone(employee.getPhone());
+        e.setAddress(employee.getAddress());
+        session.getTransaction().commit();
+    }
+"
+com.rafsan.inventory.model.EmployeeModel.deleteEmployee,EmployeeModel.java,"void deleteEmployee(Employee employee) {
+        
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Employee e = session.get(Employee.class, employee.getId());
+        session.delete(e);
+        session.getTransaction().commit();
+    }
+"
+com.rafsan.inventory.model.EmployeeModel.checkUser,EmployeeModel.java,"boolean checkUser(String username) {
+
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Query query = session.createQuery(""from Employee where userName = :username"");
+        query.setParameter(""username"", username);
+        Employee employee = (Employee) query.uniqueResult();
+        session.getTransaction().commit();
+
+        return employee != null;
+    }
+"
+com.rafsan.inventory.model.EmployeeModel.checkPassword,EmployeeModel.java,"boolean checkPassword(String username, String password) {
+
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Query query = session.createQuery(""from Employee where userName = :username"");
+        query.setParameter(""username"", username);
+        Employee employee = (Employee) query.uniqueResult();
+        session.getTransaction().commit();
+
+        return employee.getPassword().equals(password);
+    }
+"
+com.rafsan.inventory.model.ProductModel.getProducts,ProductModel.java,"ObservableList<Product> getProducts() {
+
+        ObservableList<Product> list = FXCollections.observableArrayList();
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        List<Product> products = session.createQuery(""from Product"").list();
+        session.beginTransaction().commit();
+        products.stream().forEach(list::add);
+
+        return list;
+    }
+"
+com.rafsan.inventory.model.ProductModel.getProduct,ProductModel.java,"Product getProduct(long id) {
+
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Product product = session.get(Product.class, id);
+        session.getTransaction().commit();
+
+        return product;
+    }
+"
+com.rafsan.inventory.model.ProductModel.getProductByName,ProductModel.java,"Product getProductByName(String productName) {
+
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Query query = session.createQuery(""from Product where productName=:name"");
+        query.setParameter(""name"", productName);
+        Product product = (Product) query.uniqueResult();
+        
+        return product;
+    }
+"
+com.rafsan.inventory.model.ProductModel.saveProduct,ProductModel.java,"void saveProduct(Product product) {
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        session.save(product);
+        session.getTransaction().commit();
+    }
+"
+com.rafsan.inventory.model.ProductModel.updateProduct,ProductModel.java,"void updateProduct(Product product) {
+
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Product p = session.get(Product.class, product.getId());
+        p.setProductName(product.getProductName());
+        p.setCategory(product.getCategory());
+        p.setQuantity(product.getQuantity());
+        p.setPrice(product.getPrice());
+        p.setDescription(product.getDescription());
+        session.getTransaction().commit();
+    }
+"
+com.rafsan.inventory.model.ProductModel.increaseProduct,ProductModel.java,"void increaseProduct(Product product){
+    
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Product p = session.get(Product.class, product.getId());
+        p.setQuantity(product.getQuantity());
+        session.getTransaction().commit();
+    }
+"
+com.rafsan.inventory.model.ProductModel.decreaseProduct,ProductModel.java,"void decreaseProduct(Product product){
+    
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Product p = session.get(Product.class, product.getId());
+        p.setQuantity(product.getQuantity());
+        session.getTransaction().commit();
+    }
+"
+com.rafsan.inventory.model.ProductModel.deleteProduct,ProductModel.java,"void deleteProduct(Product product) {
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Product p = session.get(Product.class, product.getId());
+        session.delete(p);
+        session.getTransaction().commit();
+    }
+"
+com.rafsan.inventory.model.ProductModel.getProductNames,ProductModel.java,"ObservableList<String> getProductNames(){
+    
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(Product.class);
+        criteria.setProjection(Projections.property(""productName""));
+        ObservableList<String> list = FXCollections.observableArrayList(criteria.list());
+        session.getTransaction().commit();
+        
+        return list;
+    }
+"
+com.rafsan.inventory.model.InvoiceModel.getInvoices,InvoiceModel.java,"ObservableList<Invoice> getInvoices() {
+
+        ObservableList<Invoice> list = FXCollections.observableArrayList();
+
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        List<Invoice> products = session.createQuery(""from Invoice"").list();
+        session.beginTransaction().commit();
+        products.stream().forEach(list::add);
+
+        return list;
+    }
+"
+com.rafsan.inventory.model.InvoiceModel.getInvoice,InvoiceModel.java,"Invoice getInvoice(String id) {
+
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Invoice invoice = session.get(Invoice.class, id);
+        session.getTransaction().commit();
+
+        return invoice;
+    }
+"
+com.rafsan.inventory.model.InvoiceModel.saveInvoice,InvoiceModel.java,"void saveInvoice(Invoice invoice) {
+
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        session.save(invoice);
+        session.getTransaction().commit();
+    }
+"
+com.rafsan.inventory.model.InvoiceModel.deleteCategory,InvoiceModel.java,"void deleteCategory(Invoice invoice) {
+
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Invoice i = session.get(Invoice.class, invoice.getId());
+        session.delete(i);
+        session.getTransaction().commit();
+    }
+"
+com.rafsan.inventory.model.CategoryModel.getCategories,CategoryModel.java,"ObservableList<Category> getCategories() {
+
+        ObservableList<Category> list = FXCollections.observableArrayList();
+
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        List<Category> categories = session.createQuery(""from Category"").list();
+        session.beginTransaction().commit();
+        categories.stream().forEach(list::add);
+
+        return list;
+    }
+"
+com.rafsan.inventory.model.CategoryModel.getCategory,CategoryModel.java,"Category getCategory(long id) {
+
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Category category = session.get(Category.class, id);
+        session.getTransaction().commit();
+
+        return category;
+    }
+"
+com.rafsan.inventory.model.CategoryModel.saveCategory,CategoryModel.java,"void saveCategory(Category category) {
+
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        session.save(category);
+        session.getTransaction().commit();
+    }
+"
+com.rafsan.inventory.model.CategoryModel.updateCategory,CategoryModel.java,"void updateCategory(Category category) {
+
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Category c = session.get(Category.class, category.getId());
+        c.setType(category.getType());
+        c.setDescription(category.getDescription());
+        session.getTransaction().commit();
+    }
+"
+com.rafsan.inventory.model.CategoryModel.deleteCategory,CategoryModel.java,"void deleteCategory(Category category) {
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Category c = session.get(Category.class, category.getId());
+        session.delete(c);
+        session.getTransaction().commit();
+    }
+"
+com.rafsan.inventory.model.CategoryModel.getTypes,CategoryModel.java,"ObservableList<String> getTypes() {
+        
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(Category.class);
+        criteria.setProjection(Projections.property(""type""));
+        ObservableList<String> list = FXCollections.observableArrayList(criteria.list());
+        session.getTransaction().commit();
+        
+        return list;
+    }
+"
+com.rafsan.inventory.model.PurchaseModel.getPurchases,PurchaseModel.java,"ObservableList<Purchase> getPurchases() {
+        
+        ObservableList<Purchase> list = FXCollections.observableArrayList();
+
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        List<Purchase> products = session.createQuery(""from Purchase"").list();
+        session.beginTransaction().commit();
+        products.stream().forEach(list::add);
+
+        return list;
+    }
+"
+com.rafsan.inventory.model.PurchaseModel.getPurchase,PurchaseModel.java,"Purchase getPurchase(long id) {
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Purchase purchase = session.get(Purchase.class, id);
+        session.getTransaction().commit();
+
+        return purchase;
+    }
+"
+com.rafsan.inventory.model.PurchaseModel.savePurchase,PurchaseModel.java,"void savePurchase(Purchase purchase) {
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        session.save(purchase);
+        session.getTransaction().commit();
+    }
+"
+com.rafsan.inventory.model.PurchaseModel.updatePurchase,PurchaseModel.java,"void updatePurchase(Purchase purchase) {
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Purchase p = session.get(Purchase.class, purchase.getId());
+        p.setProduct(purchase.getProduct());
+        p.setSupplier(purchase.getSupplier());
+        p.setQuantity(purchase.getQuantity());
+        p.setDate(purchase.getDate());
+        session.getTransaction().commit();
+    }
+"
+com.rafsan.inventory.model.PurchaseModel.deletePurchase,PurchaseModel.java,"void deletePurchase(Purchase purchase) {
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Purchase p = session.get(Purchase.class, purchase.getId());
+        session.delete(p);
+        session.getTransaction().commit();
+    }
+"
+com.rafsan.inventory.model.SalesModel.getSales,SalesModel.java,"ObservableList<Sale> getSales() {
+
+        ObservableList<Sale> list = FXCollections.observableArrayList();
+
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        List<Sale> products = session.createQuery(""from Sale"").list();
+        session.beginTransaction().commit();
+        products.stream().forEach(list::add);
+
+        return list;
+    }
+"
+com.rafsan.inventory.model.SalesModel.getSaleByProductId,SalesModel.java,"ObservableList<Sale> getSaleByProductId(long id) {
+
+        ObservableList<Sale> list = FXCollections.observableArrayList();
+
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+
+        List<Sale> products = (List<Sale>) session.createCriteria(Sale.class)
+                .add(Restrictions.eq(""product.id"", id)).list();
+
+        session.beginTransaction().commit();
+        products.stream().forEach(list::add);
+
+        return list;
+    }
+"
+com.rafsan.inventory.model.SalesModel.getSale,SalesModel.java,"Sale getSale(long id) {
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Sale sale = session.get(Sale.class, id);
+        session.getTransaction().commit();
+
+        return sale;
+    }
+"
+com.rafsan.inventory.model.SalesModel.saveSale,SalesModel.java,"void saveSale(Sale sale) {
+
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        session.save(sale);
+        session.getTransaction().commit();
+    }
+"
+com.rafsan.inventory.model.SalesModel.updateSale,SalesModel.java,"void updateSale(Sale sale) {
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Sale s = session.get(Sale.class, sale.getId());
+        s.setProduct(sale.getProduct());
+        s.setQuantity(sale.getQuantity());
+        s.setPrice(sale.getPrice());
+        s.setTotal(sale.getTotal());
+        s.setDate(sale.getDate());
+        session.getTransaction().commit();
+    }
+"
+com.rafsan.inventory.model.SalesModel.deleteSale,SalesModel.java,"void deleteSale(Sale sale) {
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Sale s = session.get(Sale.class, sale.getId());
+        session.delete(s);
+        session.getTransaction().commit();
+    }
+"
+com.rafsan.inventory.controller.employee.EditController.EditController,EditController.java,"public EditController() {
+    super();
+}"
+com.rafsan.inventory.controller.category.EditController.EditController,EditController.java,"public EditController() {
+    super();
+}"
+com.rafsan.inventory.interfaces.SupplierInterface.SupplierInterface,SupplierInterface.java,"public SupplierInterface() {
+    super();
+}"
+com.rafsan.inventory.controller.pos.PosController.PosController,PosController.java,"public PosController() {
+    super();
+}"
+com.rafsan.inventory.dao.SaleDao.SaleDao,SaleDao.java,"public SaleDao() {
+    super();
+}"
+com.rafsan.inventory.interfaces.PurchaseInterface.PurchaseInterface,PurchaseInterface.java,"public PurchaseInterface() {
+    super();
+}"
+com.rafsan.inventory.dao.PurchaseDao.PurchaseDao,PurchaseDao.java,"public PurchaseDao() {
+    super();
+}"
+com.rafsan.inventory.controller.purchase.AddController.AddController,AddController.java,"public AddController() {
+    super();
+}"
+com.rafsan.inventory.model.SalesModel.SalesModel,SalesModel.java,"public SalesModel() {
+    super();
+}"
+com.rafsan.inventory.model.ProductModel.ProductModel,ProductModel.java,"public ProductModel() {
+    super();
+}"
+com.rafsan.inventory.entity.Product.Product,Product.java,"public Product() {
+    super();
+}"
+com.rafsan.inventory.controller.product.EditController.EditController,EditController.java,"public EditController() {
+    super();
+}"
+com.rafsan.inventory.dao.SupplierDao.SupplierDao,SupplierDao.java,"public SupplierDao() {
+    super();
+}"
+com.rafsan.inventory.dao.ProductDao.ProductDao,ProductDao.java,"public ProductDao() {
+    super();
+}"
+com.rafsan.inventory.interfaces.ProductInterface.ProductInterface,ProductInterface.java,"public ProductInterface() {
+    super();
+}"
+com.rafsan.inventory.model.CategoryModel.CategoryModel,CategoryModel.java,"public CategoryModel() {
+    super();
+}"
+com.rafsan.inventory.controller.product.AddController.AddController,AddController.java,"public AddController() {
+    super();
+}"
+com.rafsan.inventory.controller.report.ViewController.ViewController,ViewController.java,"public ViewController() {
+    super();
+}"
+com.rafsan.inventory.controller.category.CategoryController.CategoryController,CategoryController.java,"public CategoryController() {
+    super();
+}"
+com.rafsan.inventory.pdf.PrintInvoice.PrintInvoice,PrintInvoice.java,"public PrintInvoice() {
+    super();
+}"
+com.rafsan.inventory.entity.Employee.Employee,Employee.java,"public Employee() {
+    super();
+}"
+com.rafsan.inventory.controller.supplier.SupplierController.SupplierController,SupplierController.java,"public SupplierController() {
+    super();
+}"
+com.rafsan.inventory.controller.supplier.AddController.AddController,AddController.java,"public AddController() {
+    super();
+}"
+com.rafsan.inventory.interfaces.SaleInterface.SaleInterface,SaleInterface.java,"public SaleInterface() {
+    super();
+}"
+com.rafsan.inventory.interfaces.EmployeeInterface.EmployeeInterface,EmployeeInterface.java,"public EmployeeInterface() {
+    super();
+}"
+com.rafsan.inventory.entity.Category.Category,Category.java,"public Category() {
+    super();
+}"
+com.rafsan.inventory.model.SupplierModel.SupplierModel,SupplierModel.java,"public SupplierModel() {
+    super();
+}"
+com.rafsan.inventory.interfaces.ReportInterface.ReportInterface,ReportInterface.java,"public ReportInterface() {
+    super();
+}"
+com.rafsan.inventory.controller.category.AddController.AddController,AddController.java,"public AddController() {
+    super();
+}"
+com.rafsan.inventory.controller.purchase.PurchaseController.PurchaseController,PurchaseController.java,"public PurchaseController() {
+    super();
+}"
+com.rafsan.inventory.entity.Sale.Sale,Sale.java,"public Sale() {
+    super();
+}"
+com.rafsan.inventory.entity.Supplier.Supplier,Supplier.java,"public Supplier() {
+    super();
+}"
+com.rafsan.inventory.model.InvoiceModel.InvoiceModel,InvoiceModel.java,"public InvoiceModel() {
+    super();
+}"
+com.rafsan.inventory.entity.Item.Item,Item.java,"public Item() {
+    super();
+}"
+com.rafsan.inventory.dao.EmployeeDao.EmployeeDao,EmployeeDao.java,"public EmployeeDao() {
+    super();
+}"
+com.rafsan.inventory.controller.report.ReportController.ReportController,ReportController.java,"public ReportController() {
+    super();
+}"
+com.rafsan.inventory.entity.Payment.Payment,Payment.java,"public Payment() {
+    super();
+}"
+com.rafsan.inventory.model.PurchaseModel.PurchaseModel,PurchaseModel.java,"public PurchaseModel() {
+    super();
+}"
+com.rafsan.inventory.model.EmployeeModel.EmployeeModel,EmployeeModel.java,"public EmployeeModel() {
+    super();
+}"
+com.rafsan.inventory.controller.pos.ConfirmController.ConfirmController,ConfirmController.java,"public ConfirmController() {
+    super();
+}"
+com.rafsan.inventory.dao.CategoryDao.CategoryDao,CategoryDao.java,"public CategoryDao() {
+    super();
+}"
+com.rafsan.inventory.controller.product.ProductController.ProductController,ProductController.java,"public ProductController() {
+    super();
+}"
+com.rafsan.inventory.entity.Invoice.Invoice,Invoice.java,"public Invoice() {
+    super();
+}"
+com.rafsan.inventory.entity.Purchase.Purchase,Purchase.java,"public Purchase() {
+    super();
+}"
+com.rafsan.inventory.controller.employee.AddController.AddController,AddController.java,"public AddController() {
+    super();
+}"
+com.rafsan.inventory.dao.InvoiceDao.InvoiceDao,InvoiceDao.java,"public InvoiceDao() {
+    super();
+}"
+com.rafsan.inventory.controller.sales.SalesController.SalesController,SalesController.java,"public SalesController() {
+    super();
+}"
+com.rafsan.inventory.controller.pos.InvoiceController.InvoiceController,InvoiceController.java,"public InvoiceController() {
+    super();
+}"
+com.rafsan.inventory.interfaces.CategoryInterface.CategoryInterface,CategoryInterface.java,"public CategoryInterface() {
+    super();
+}"
+com.rafsan.inventory.controller.employee.EmployeeController.EmployeeController,EmployeeController.java,"public EmployeeController() {
+    super();
+}"
+com.rafsan.inventory.controller.supplier.EditController.EditController,EditController.java,"public EditController() {
+    super();
+}"
