@@ -81,8 +81,7 @@ Follow the steps below to build the Docker image and run MAGNET to identify micr
 
 Citing
 ---
-TODO
-
+Imen, T. (2024). MAGNET: Method-based Approach using Graph Neural Network for Microservices Identification. Zenodo. https://doi.org/10.5281/zenodo.10794892
 
 Contact us
 ---
